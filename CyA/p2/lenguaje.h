@@ -5,8 +5,8 @@
 // Curso: 2º
 // Pr´actica 2: Cadenas y lenguajes
 // Autor: Ricardo David Rodríguez Pane
-// Correo: aluXXXXX@ull.edu.es
-// Fecha: 17/09/2024
+// Correo: alu0101643137@ull.edu.es
+// Fecha: 19/09/2024
 // Archivo cya-P02-strings.cc: programa cliente.
 // Contiene la funci´on main del proyecto que usa las clases X e Y
 // para ... (indicar brevemente el objetivo)
@@ -17,31 +17,37 @@
 // 17/09/2024 - Creaci´on (primera versi´on) del c´odigo
 
 
-#ifndef PRACTICA2_H
-#define PRACTICA2_H
+#ifndef LENGUAJE_H
+#define LENGUAJE_H
 
 #include <set>
+#include <iostream>
 
 class Alfabeto {
  public:
-  Alfabeto() {};
+  Alfabeto(const std::string& cadena);
 
-  void ImprimeAlfabeto(alfabeto);
-  void Longitud(alfabeto);
-  void Inversa(alfabeto);
-  void Prefijos(alfabeto);
-  void Sufijos(alfabeto);
+  std::set<char> GetAlfabeto() const { return alfabeto_; }
+
+  int GetSize() const { return alfabeto_.size(); }
 
  private:
   std::set<char> alfabeto_;
-
 };
 
-class Cadena : Alfabeto {
+std::ostream& operator<<(std::ostream& os, const Alfabeto& alfabeto);
+
+class Cadena {
  public:
-  
- private:
-  Alfabeto alfabeto;
-};
+  Cadena(const std::string& cadena);
+  std::string GetCadena() const { return cadena_; }
+  void Longitud(std::ostream& os) const;
+  std::string Inversa() const;
+  void Prefijos() const;
+  void Sufijos() const;
 
+ private:
+  std::string cadena_;
+};
+std::ostream& operator<<(std::ostream& os, const Cadena& cadena);
 #endif

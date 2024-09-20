@@ -2,6 +2,10 @@
 #include <fstream>
 #include <vector>
 #include <iostream>
+#include <sstream>
+
+#include "lenguaje.h"
+
 
 bool usage(const int argc) {
   bool usage = false;
@@ -26,11 +30,29 @@ int main(int argc, char* argv[]) {
     std::cerr << "ERROR. No se puede abrir el archivo de entrada" << std::endl;
     return 1;
   }
-  std::string outputFile{argv[2]};
+  std::string outputFile{argv[2]};        // guarddamos en outputFile el nombre del archivo de salida
+  std::string opcode{argv[3]};            // guardamos en opcode el opcode
   std::ofstream result{outputFile};
   std::string linea;
   while (std::getline(File, linea)) {
-    result << linea << std::endl;
+    std::istringstream iss(linea);
+    std::string cadena;
+    iss >> cadena;
+    std::string alfabeto;
+    iss >> alfabeto;
+    if (opcode == "Alfabeto") {
+      Alfabeto prueba{alfabeto};
+      result << prueba;
+    }
+    else if (opcode == "Longitud") {
+      Cadena prueba{cadena};
+      prueba.Longitud(result);
+    }
+    else if (opcode == "Inversa") {
+      Cadena prueba{cadena};
+      std::string inversa{prueba.Inversa()};
+      result << inversa << std::endl;
+    }
   }
   std::cout << "Exito" << std::endl;
   return 0;
