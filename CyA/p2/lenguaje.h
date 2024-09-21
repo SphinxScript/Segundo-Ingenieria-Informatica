@@ -43,8 +43,9 @@ class Cadena {
   std::string GetCadena() const { return cadena_; }
   void Longitud(std::ostream& os) const;
   std::string Inversa() const;
-  void Prefijos() const;
-  void Sufijos() const;
+  std::set<std::string> Prefijos() const;
+  std::set<std::string> Sufijos() const;
+  void Imprimir(std::ostream& os) const;
 
  private:
   std::string cadena_;

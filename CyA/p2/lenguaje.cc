@@ -45,11 +45,12 @@ Cadena::Cadena(const std::string& cadena) {
 }
 
 std::string Cadena::Inversa() const {
+  std::string cadena{GetCadena()};
   std::string cadenaInvertida;
-  cadenaInvertida.resize(cadena_.size());
-  int indice{static_cast<int>(cadena_.size()) - 1};
-  for (int i{0}; i < cadena_.size(); ++i) {
-    cadenaInvertida[indice] = cadena_[i];
+  cadenaInvertida.resize(cadena.size());
+  int indice{static_cast<int>(cadena.size()) - 1};
+  for (int i{0}; i < cadena.size(); ++i) {
+    cadenaInvertida[indice] = cadena[i];
     --indice;
   }
   return cadenaInvertida;
@@ -62,5 +63,33 @@ std::ostream& operator<<(std::ostream& os, const Cadena& cadena) {
 }
 
 void Cadena::Longitud (std::ostream& os) const {
-  os << cadena_.size() << std::endl;
+  std::string cadena{GetCadena()};
+  os << cadena.size() << std::endl;
+}
+
+std::set<std::string> Cadena::Prefijos() const {
+  std::set<std::string> conjuntoPrefijos;
+  std::string cadena{GetCadena()};
+  conjuntoPrefijos.insert("");
+  for (int i{0}; i <= static_cast<int>(cadena.size()); ++i) {
+    std::string subcadena;
+    subcadena = cadena.substr(0, i);
+    conjuntoPrefijos.insert(subcadena);
+  }
+  return conjuntoPrefijos;
+}
+
+
+std::set<std::string> Cadena::Sufijos() const {
+  std::set<std::string> conjuntoSufijos;
+  std::string cadena{GetCadena()};
+  conjuntoSufijos.insert("");
+  int indice{0};
+  for (int i{static_cast<int>(cadena.size())}; i >= 0; --i) {
+    std::string subcadena;
+    subcadena = cadena.substr(i, indice);
+    conjuntoSufijos.insert(subcadena);
+    ++indice;
+  }
+  return conjuntoSufijos;
 }
