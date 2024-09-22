@@ -61,7 +61,7 @@ bool Cadena::operator<(const Cadena& otro) const {
 
 std::ostream& operator<<(std::ostream& os, const Cadena& cadena) {
   std::string cadenita = cadena.GetCadena();
-  if (cadenita == "") std::cout << "&";
+  if (cadenita == "") os << "&";
   os << cadenita;
   return os;
 }

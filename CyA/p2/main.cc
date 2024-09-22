@@ -57,13 +57,13 @@ int main(int argc, char* argv[]) {
       Cadena prueba{cadena};
       Conjunto prefijos;
       prefijos.ConjuntoPrefijos(prueba);
-      std::cout << prefijos;
+      result << prefijos;
     }
     else if (opcode == "Sufijos") {
       Cadena prueba{cadena};
       Conjunto sufijos;
       sufijos.ConjuntoSufijos(prueba);
-      std::cout << sufijos << std::endl;
+      result << sufijos << std::endl;
     }
     else {
       std::cout << "Opcode Incorrecto" << std::endl;
