@@ -33,7 +33,6 @@ class Cadena {
   int Size() const { return cadena_.size(); }
   std::set<Cadena> Prefijo() const;
   std::set<Cadena> Sufijo() const;
-  void Imprimir(std::ostream& os) const;
   bool operator<(const Cadena& otro) const;
  private:
   std::string cadena_;

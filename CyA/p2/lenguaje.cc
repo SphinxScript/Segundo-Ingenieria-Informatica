@@ -56,7 +56,7 @@ std::string Cadena::Inversa() const {
 }
 
 bool Cadena::operator<(const Cadena& otro) const {
-  return cadena_ < otro.cadena_;
+  return cadena_.size() < otro.cadena_.size();
 }
 
 std::ostream& operator<<(std::ostream& os, const Cadena& cadena) {
