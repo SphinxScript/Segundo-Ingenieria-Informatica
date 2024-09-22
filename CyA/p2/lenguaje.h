@@ -23,32 +23,45 @@
 #include <set>
 #include <iostream>
 
-class Alfabeto {
- public:
-  Alfabeto(const std::string& cadena);
-
-  std::set<char> GetAlfabeto() const { return alfabeto_; }
-
-  int GetSize() const { return alfabeto_.size(); }
-
- private:
-  std::set<char> alfabeto_;
-};
-
-std::ostream& operator<<(std::ostream& os, const Alfabeto& alfabeto);
-
 class Cadena {
  public:
+  Cadena() = default;
   Cadena(const std::string& cadena);
   std::string GetCadena() const { return cadena_; }
   void Longitud(std::ostream& os) const;
   std::string Inversa() const;
-  std::set<std::string> Prefijos() const;
-  std::set<std::string> Sufijos() const;
+  int Size() const { return cadena_.size(); }
+  std::set<Cadena> Prefijo() const;
+  std::set<Cadena> Sufijo() const;
   void Imprimir(std::ostream& os) const;
-
+  bool operator<(const Cadena& otro) const;
  private:
   std::string cadena_;
 };
 std::ostream& operator<<(std::ostream& os, const Cadena& cadena);
+
+
+class Alfabeto {
+ public:
+  Alfabeto(const std::string& cadena);
+  std::set<char> GetAlfabeto() const { return alfabeto_; }
+  int GetSize() const { return alfabeto_.size(); }
+ private:
+  std::set<char> alfabeto_;
+};
+std::ostream& operator<<(std::ostream& os, const Alfabeto& alfabeto);
+
+
+class Conjunto {
+ public:
+  Conjunto() {};
+  std::set<Cadena> GetConjunto() const { return conjunto_; }
+  void Insert(const Cadena&);
+  int Size() const { return conjunto_.size(); }
+  void ConjuntoPrefijos(const Cadena& cadena);
+  void ConjuntoSufijos(const Cadena& cadena);
+ private:
+  std::set<Cadena> conjunto_;
+};
+std::ostream& operator<<(std::ostream& os, const Conjunto& conjunto);
 #endif

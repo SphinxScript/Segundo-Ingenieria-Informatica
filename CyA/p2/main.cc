@@ -55,41 +55,15 @@ int main(int argc, char* argv[]) {
     }
     else if (opcode == "Prefijos") {
       Cadena prueba{cadena};
-      std::set<std::string> prefijos{prueba.Prefijos()};
-      result << "{";
-      int limite{0};
-      for (const std::string& auxiliar : prefijos) {
-        ++limite;
-        if (auxiliar == "") {
-          result << "&, ";
-        }
-        else {
-          result << auxiliar;
-          if (limite != prefijos.size()) {
-          result << ", ";
-          }
-        }
-      }
-      result << "}" << std::endl;
+      Conjunto prefijos;
+      prefijos.ConjuntoPrefijos(prueba);
+      std::cout << prefijos;
     }
     else if (opcode == "Sufijos") {
       Cadena prueba{cadena};
-      std::set<std::string> sufijos{prueba.Sufijos()};
-      result << "{";
-      int limite{0};
-      for (const std::string& auxiliar : sufijos) {
-        ++limite;
-        if (auxiliar == "") {
-          result << "&, ";
-        }
-        else {
-          result << auxiliar;
-          if (limite != sufijos.size()) {
-          result << ", ";
-          }
-        }
-      }
-      result << "}" << std::endl;
+      Conjunto sufijos;
+      sufijos.ConjuntoSufijos(prueba);
+      std::cout << sufijos << std::endl;
     }
     else {
       std::cout << "Opcode Incorrecto" << std::endl;
