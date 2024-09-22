@@ -23,7 +23,9 @@
 #include <iostream>
 
 #include "funciones.h"
-#include "lenguaje.h"
+#include "alfabeto.h"
+#include "cadena.h"
+#include "conjunto.h"
 
 bool usage(const int& argc) {
   bool usage = true;

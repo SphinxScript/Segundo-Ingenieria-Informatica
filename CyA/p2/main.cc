@@ -22,7 +22,9 @@
 #include <fstream>
 #include <sstream>
 
-#include "lenguaje.h"
+#include "alfabeto.h"
+#include "cadena.h"
+#include "conjunto.h"
 #include "funciones.h"
 
 

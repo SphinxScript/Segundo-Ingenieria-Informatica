@@ -16,40 +16,14 @@
 // Historial de revisiones
 // 17/09/2024 - Creaci´on (primera versi´on) del c´odigo
 
-
-#ifndef LENGUAJE_H
-#define LENGUAJE_H
+#ifndef CONJUNTO_H
+#define CONJUNTO_H
 
 #include <set>
 #include <iostream>
+#include <string>
 
-class Cadena {
- public:
-  Cadena() = default;
-  Cadena(const std::string& cadena);
-  std::string GetCadena() const { return cadena_; }
-  void Longitud(std::ostream& os) const;
-  std::string Inversa() const;
-  int Size() const { return cadena_.size(); }
-  std::set<Cadena> Prefijo() const;
-  std::set<Cadena> Sufijo() const;
-  bool operator<(const Cadena& otro) const;
- private:
-  std::string cadena_;
-};
-std::ostream& operator<<(std::ostream& os, const Cadena& cadena);
-
-
-class Alfabeto {
- public:
-  Alfabeto(const std::string& cadena);
-  std::set<char> GetAlfabeto() const { return alfabeto_; }
-  int GetSize() const { return alfabeto_.size(); }
- private:
-  std::set<char> alfabeto_;
-};
-std::ostream& operator<<(std::ostream& os, const Alfabeto& alfabeto);
-
+#include "cadena.h"
 
 class Conjunto {
  public:
@@ -63,4 +37,6 @@ class Conjunto {
   std::set<Cadena> conjunto_;
 };
 std::ostream& operator<<(std::ostream& os, const Conjunto& conjunto);
+
+
 #endif
