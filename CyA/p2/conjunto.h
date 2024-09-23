@@ -25,7 +25,7 @@
 
 class Conjunto {
  public:
-  Conjunto() {};
+  Conjunto() = default;
   std::set<Cadena> GetConjunto() const { return conjunto_; }
   void Insert(const Cadena&);
   int Size() const { return conjunto_.size(); }

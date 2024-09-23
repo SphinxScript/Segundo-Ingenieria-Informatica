@@ -44,13 +44,19 @@ std::string Cadena::Inversa() const {
 
 /**
  * @brief sobrecarga del operador "<"
- * @param model, plate, kilometers el que emplea parametros lleva sus parametros correspondientes para crear el objeto coche.
- * @return no retornan nada, ya que son constructores.
+ * @param otro objeto cadena que se compara con el que llama al metodo.
+ * @return true o false dependiendo de la comparación.
  */
 bool Cadena::operator<(const Cadena& otro) const {
   return cadena_.size() < otro.cadena_.size();
 }
 
+/**
+ * @brief sobrecarga del operador "<<"
+ * @param os flujo de salida std::ostream
+ * @param cadena objeto cadena a imprimir
+ * @return true o false dependiendo de la comparación.
+ */
 std::ostream& operator<<(std::ostream& os, const Cadena& cadena) {
   std::string cadenita = cadena.GetCadena();
   if (cadenita == "") os << "&";
@@ -58,7 +64,11 @@ std::ostream& operator<<(std::ostream& os, const Cadena& cadena) {
   return os;
 }
 
-void Cadena::Longitud (std::ostream& os) const {
+/**
+ * @brief metodo que imprime la longitud de la cadena
+ * @param os flujo de salida
+ */
+void Cadena::ImprimeLongitud (std::ostream& os) const {
   std::string cadena{GetCadena()};
   os << cadena.size() << std::endl;
 }

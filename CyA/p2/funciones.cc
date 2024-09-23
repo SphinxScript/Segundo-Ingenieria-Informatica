@@ -1,20 +1,18 @@
 // Universidad de La Laguna
-// Escuela Superior de Ingenier´ıa y Tecnolog´ıa
-// Grado en Ingenier´ıa Inform´atica
+// Escuela Superior de Ingeniería y Tecnología
+// Grado en Ingeniería Informática
 // Asignatura: Computabilidad y Algoritmia
 // Curso: 2º
-// Pr´actica 2: Cadenas y lenguajes
+// Práctica 2: Cadenas y lenguajes
 // Autor: Ricardo David Rodríguez Pane
 // Correo: alu0101643137@ull.edu.es
 // Fecha: 19/09/2024
-// Archivo cya-P02-strings.cc: programa cliente.
-// Contiene la funci´on main del proyecto que usa las clases X e Y
-// para ... (indicar brevemente el objetivo)
+// Archivo: funciones.cc
+// Contiene la implementación de las funciones que usará el programa cliente.
 // Referencias:
-// Enlaces de inter´es
-
+// Enlaces de interés
 // Historial de revisiones
-// 17/09/2024 - Creaci´on (primera versi´on) del c´odigo
+// 17/09/2024 - Creación (primera versión) del código
 
 
 #include <string>
@@ -27,6 +25,11 @@
 #include "cadena.h"
 #include "conjunto.h"
 
+/**
+ * @brief método que comrpueba si el nº de parametros pasados al main son correctos
+ * @param argc nº de parametros pasados al main.
+ * @return usage devuelve true o false dependiendo del número.
+ */
 bool usage(const int& argc) {
   bool usage = true;
   if (argc != 2 && argc != 4) {
@@ -35,19 +38,37 @@ bool usage(const int& argc) {
   return usage;
 }
 
-bool help(const std::string& help) {
+/**
+ * @brief método que comrpueba si se ha pasado como parametro "--help"
+ * @param argc nº de parametros pasados al main.
+ * @param help string del parametro en posición 1 de argv[]
+ * @return param true o false dependiendo de la comparación.
+ */
+bool help(const int& argc, const std::string& help) {
   bool param = false;
-  if (help == "--help") param = true;
+  if (argc == 2 && help == "--help") param = true;
   return param;
 }
 
+/**
+ * @brief método que comrpueba si el archivo de entrada está abierto
+ * @param file input file stream archvo de entrada.
+ * @return open variable booleana true o false dependiendo de si esta abierto o no
+ */
 bool managefile(const std::ifstream& file) {
   bool open = true;
   if (!file.is_open()) open = false;
   return open;
 }
 
-void programa(std::ifstream& File, std::ofstream& result, std::string& linea, const std::string& opcode) {
+/**
+ * @brief esta parte se encarga de ejecutar el programa como tal, haciendo uso de las clases y sus parámetros.
+ * @param File fichero de entrada.
+ * @param OutFile fichero de salida
+ * @param linea linea del fichero de entrada. Es pasada como string.
+ * @param opcode string del opcode que se pasa al programa
+ */
+void programa(std::ifstream& File, std::ofstream& OutFile, std::string& linea, const std::string& opcode) {
   while (std::getline(File, linea)) {
       std::istringstream iss(linea);
       std::string cadena;
@@ -55,29 +76,29 @@ void programa(std::ifstream& File, std::ofstream& result, std::string& linea, co
       std::string alfabeto;
       iss >> alfabeto;
       if (opcode == "Alfabeto") {
-        Alfabeto prueba{alfabeto};
-        result << prueba;
+        Alfabeto Alfabeto{alfabeto};
+        OutFile << Alfabeto;
       }
       else if (opcode == "Longitud") {
-        Cadena prueba{cadena};
-        prueba.Longitud(result);
+        Cadena Cadena{cadena};
+        Cadena.ImprimeLongitud(OutFile);
       }
       else if (opcode == "Inversa") {
-        Cadena prueba{cadena};
-        std::string inversa{prueba.Inversa()};
-        result << inversa << std::endl;
+        Cadena Cadena{cadena};
+        std::string inversa{Cadena.Inversa()};
+        OutFile << inversa << std::endl;
       }
       else if (opcode == "Prefijos") {
-        Cadena prueba{cadena};
+        Cadena Cadena{cadena};
         Conjunto prefijos;
-        prefijos.ConjuntoPrefijos(prueba);
-        result << prefijos;
+        prefijos.ConjuntoPrefijos(Cadena);
+        OutFile << prefijos;
       }
       else if (opcode == "Sufijos") {
-        Cadena prueba{cadena};
+        Cadena Cadena{cadena};
         Conjunto sufijos;
-        sufijos.ConjuntoSufijos(prueba);
-        result << sufijos << std::endl;
+        sufijos.ConjuntoSufijos(Cadena);
+        OutFile << sufijos << std::endl;
       }
       else {
         std::cout << "Opcode Incorrecto" << std::endl;

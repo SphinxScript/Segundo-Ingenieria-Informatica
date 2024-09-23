@@ -23,7 +23,7 @@
 #include <sstream>
 
 bool usage(const int& argc);
-bool help(const std::string& help);
+bool help(const int& argc, const std::string& help);
 bool managefile(const std::ifstream& file);
 void programa(std::ifstream& File, std::ofstream& result, std::string& linea, const std::string& opcode);
 

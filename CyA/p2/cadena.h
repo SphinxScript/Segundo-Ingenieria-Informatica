@@ -27,11 +27,9 @@ class Cadena {
   Cadena() = default;
   Cadena(const std::string& cadena);
   std::string GetCadena() const { return cadena_; }
-  void Longitud(std::ostream& os) const;
+  void ImprimeLongitud(std::ostream& os) const;
   std::string Inversa() const;
   int Size() const { return cadena_.size(); }
-  std::set<Cadena> Prefijo() const;
-  std::set<Cadena> Sufijo() const;
   bool operator<(const Cadena& otro) const;
  private:
   std::string cadena_;
