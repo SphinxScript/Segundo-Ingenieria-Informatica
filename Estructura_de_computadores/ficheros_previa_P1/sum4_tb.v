@@ -1,15 +1,15 @@
-// Testbench para sumador con predicción de acarreo
-`timescale 1 ns / 10 ps //Directiva que fija la unidad de tiempo de simulación y el del paso de simulacion
+// Testbench para sumador con predicciï¿½n de acarreo
+`timescale 1 ns / 10 ps //Directiva que fija la unidad de tiempo de simulaciï¿½n y el del paso de simulacion
 module sum4_tb;
 
-//declaracion de señales
+//declaracion de seï¿½ales
 reg[3:0] test_A, test_B;
 reg test_c_in;
 wire[3:0] test_S;
 wire test_C_out;
 
 //instancia del modulo a testear
-sum4 sum(test_S, test_c_out, test_A, test_B, test_c_in);
+sum4 sum(test_S, test_C_out, test_A, test_B, test_c_in);
 
 initial
 begin
