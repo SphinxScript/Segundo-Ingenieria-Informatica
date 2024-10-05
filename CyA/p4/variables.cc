@@ -19,6 +19,5 @@ std::ostream& operator<<(std::ostream& os, const Variables& otro) {
   for (int i{0}; i < static_cast<int>(vector.size()); ++i) {
     os << "[Linea: " << indices[i] << "] " << vector[i] << std::endl;
   }
-//  os << indices.size() << vector.size();
   return os;
 }

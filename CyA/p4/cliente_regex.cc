@@ -4,7 +4,8 @@
 #include <sstream>
 
 #include "variables.h"
-
+#include "bucles.h"
+#include "main.h"
 
 bool usage(const int& argc) {
   bool usage = true;
@@ -27,14 +28,22 @@ int main(int argc, char* argv[]) {
   std::ofstream output_file{argv[2]};
   std::string linea;
   Variables variables;
+  Bucles bucles;
+  Main main;
   int numero_linea{1};
   if (input_file.is_open()) {
     while (std::getline(input_file, linea)) {
       variables.ProcesarLinea(linea, numero_linea);
+      bucles.ProcesarLinea(linea, numero_linea);
+      main.ProcesarLinea(linea);
       ++numero_linea;
     }
   }
   output_file << variables;
+  output_file << std::endl;
+  output_file << bucles;
+  output_file << std::endl;
+  output_file << main;
   input_file.close();
   return 0;
 }

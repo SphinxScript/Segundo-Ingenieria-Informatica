@@ -1,3 +1,10 @@
 VARIABLES:
 [Linea: 22] int factorial = 1;
 [Linea: 32] int limit ;
+
+STATEMENTS:
+[Linea: 23] for (int i = 1; i <= number; ++i) {
+[Linea: 34] for (int i = 1; i <= limit ; ++ i ) {
+
+MAIN:
+True
