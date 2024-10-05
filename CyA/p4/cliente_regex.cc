@@ -6,6 +6,7 @@
 #include "variables.h"
 #include "bucles.h"
 #include "main.h"
+#include "comentarios.h"
 
 bool usage(const int& argc) {
   bool usage = true;
@@ -14,9 +15,6 @@ bool usage(const int& argc) {
   }
   return usage;
 }
-// void () {
-
-// }
 
 int main(int argc, char* argv[]) {
   system("clear");
@@ -29,12 +27,15 @@ int main(int argc, char* argv[]) {
   Variables variables;
   Bucles bucles;
   Main main;
+  Comentarios comentarios;
   int numero_linea{1};
   if (input_file.is_open()) {
     while (std::getline(input_file, linea)) {
       variables.ProcesarLinea(linea, numero_linea);
       bucles.ProcesarLinea(linea, numero_linea);
       main.ProcesarLinea(linea);
+      std::cout << "bien hasta aqui";
+      comentarios.ProcesarLinea(linea, numero_linea);
       ++numero_linea;
     }
   }
@@ -44,6 +45,7 @@ int main(int argc, char* argv[]) {
   output_file << bucles;
   output_file << std::endl;
   output_file << main;
+  output_file << comentarios;
   input_file.close();
   return 0;
 }
