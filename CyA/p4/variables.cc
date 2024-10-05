@@ -3,7 +3,7 @@
 
 void Variables::ProcesarLinea(const std::string& linea, const int& numero) {
   std::string target_s{linea};
-  std::regex expression{"int\\s*[a-zA-Z]+\\s*=?\\s*\\d*\\s*;$|double\\s*[a-zA-Z]+\\s*=?\\s*\\d*.?\\d*\\s*;$"};
+  std::regex expression{"\\bint\\s*[a-zA-Z]+\\s*=?\\s*\\d*\\s*;$|\\bdouble\\s*[a-zA-Z]+\\s*=?\\s*\\d*.?\\d*\\s*;$"};
   std::smatch matches;
   std::regex_search(target_s, matches, expression);
   for (auto match : matches) {

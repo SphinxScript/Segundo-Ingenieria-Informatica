@@ -25,7 +25,6 @@ int main(int argc, char* argv[]) {
     return 1;
   }
   std::ifstream input_file{argv[1]};
-  std::ofstream output_file{argv[2]};
   std::string linea;
   Variables variables;
   Bucles bucles;
@@ -39,6 +38,7 @@ int main(int argc, char* argv[]) {
       ++numero_linea;
     }
   }
+  std::ofstream output_file{argv[2]};
   output_file << variables;
   output_file << std::endl;
   output_file << bucles;

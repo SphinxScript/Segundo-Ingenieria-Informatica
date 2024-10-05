@@ -2,7 +2,7 @@
 
 
 void Main::ProcesarLinea(const std::string& target) {
-  std::regex expresion{"main\\s*\\(\\)|main\\(int\\s+argc,\\s*char\\s+argv\\*\\[\\]\\)"};
+  std::regex expresion{"int main\\s*\\(\\)|int main\\(int\\s+argc,\\s*char\\s+argv\\*\\[\\]\\)"};
   if (std::regex_search(target, expresion)) {
     main_ = true;
   }

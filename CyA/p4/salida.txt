@@ -3,8 +3,8 @@ VARIABLES:
 [Linea: 32] int limit ;
 
 STATEMENTS:
-[Linea: 23] for (int i = 1; i <= number; ++i) {
-[Linea: 34] for (int i = 1; i <= limit ; ++ i ) {
+[Linea: 23] LOOP: for
+[Linea: 34] LOOP: for
 
 MAIN:
 True

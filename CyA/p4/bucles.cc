@@ -3,7 +3,7 @@
 
 void Bucles::ProcesarLinea(const std::string& linea, const int& numero) {
   std::string target_s{linea};
-  std::regex expresion{"for\\s*\\(.*\\)\\s*\\{$|while\\s*\\(.*\\)\\s*\\{$"};
+  std::regex expresion{"\\bfor|\\bwhile"};
   std::smatch coincidencias;
   std::regex_search(target_s, coincidencias, expresion);
   for (auto coincidencia : coincidencias) {
@@ -17,7 +17,7 @@ std::ostream& operator<<(std::ostream& os, const Bucles& otro) {
   std::vector<std::string> bucles{otro.GetBucles()};
   std::vector<int> indices{otro.GetNum()};
   for (int i{0}; i < static_cast<int>(bucles.size()); ++i) {
-    os << "[Linea: " << indices[i] << "] " << bucles[i] << std::endl;
+    os << "[Linea: " << indices[i] << "] LOOP: " << bucles[i] << std::endl;
   }
   return os;
 }
