@@ -1,0 +1,3 @@
+VARIABLES:
+[Linea: 22] int factorial = 1;
+[Linea: 32] int limit ;
