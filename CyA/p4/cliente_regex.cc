@@ -7,6 +7,7 @@
 #include "variables.h"
 #include "bucles.h"
 #include "comentarios_bloque.h"
+#include "comentarios_linea.h"
 
 bool usage(const int& argc) {
   bool usage = true;
@@ -39,6 +40,15 @@ void EncuentraMain(const std::string& linea, bool& main) {
   if (std::regex_search(linea, expresion)) main = true;
 }
 
+void EncuentraComentariosLinea(std::vector<ComentariosLinea>& vector_lineas, const std::string& linea, const int& contador) {
+  std::regex expresion{"^\\s*\\/\\/.*"};
+  std::smatch coincidencias;
+  if (std::regex_search(linea, coincidencias, expresion)) {
+    ComentariosLinea comentario{coincidencias.str(), contador};
+    vector_lineas.push_back(comentario);
+  }
+}
+
 int main(int argc, char* argv[]) {
   system("clear");
   if (!usage(argc)) {
@@ -52,11 +62,13 @@ int main(int argc, char* argv[]) {
   bool main{false};
   std::vector<ComentariosBloque> vector_comentarios;
   ComentariosBloque comentario;
+  std::vector<ComentariosLinea> vector_comentarios_linea;
   int contador{1};
   while (std::getline(input_file, linea)) {
     EncuentraVariables(vector_variables, linea, contador);
     EncuentraBucles(vector_bucles, linea, contador);
     EncuentraMain(linea, main);
+
     comentario.ProcesarLinea(linea, contador, contador);
     if (!comentario.GetInicio()) {
       if (!comentario.GetBloque().empty()) {
@@ -64,6 +76,8 @@ int main(int argc, char* argv[]) {
         comentario = ComentariosBloque();
       }
     }
+
+    EncuentraComentariosLinea(vector_comentarios_linea, linea, contador);
     ++contador;
   }
   std::ofstream output_file{argv[2]};
@@ -99,8 +113,10 @@ int main(int argc, char* argv[]) {
       output_file << " COMENTARIO DE BLOQUE" << std::endl;
     }
   }
+  for (auto linea : vector_comentarios_linea) {
+    output_file << linea;
+  }
 
-  // std::cout << vector_comentarios.size() << std::endl;
   input_file.close();
   return 0;
 }

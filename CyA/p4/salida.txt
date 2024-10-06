@@ -25,3 +25,4 @@ True
 COMMENTS:
 [Line 1-10] DESCRIPTION
 [Line 30-39] COMENTARIO DE BLOQUE
+[Line 15] // Returns the factorial of the argument
