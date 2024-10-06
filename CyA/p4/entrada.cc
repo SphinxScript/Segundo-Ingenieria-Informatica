@@ -27,6 +27,17 @@ int Factorial(int number) {
   }
 }
 
+/**
+ * Universidad de La Laguna
+ * Escuela Superior de Ingenieria y Tecnologia
+ * Informatica Basica
+ *
+ * @brief Ejercicios de programacion
+ * Version 1: Funcion factorial
+ *
+ * @see https :// github .com/IB -2023 -2024/ IB -class -code - examples /
+ */
+
 int main () {
   std :: cout << " Introduzca el numero de factoriales a calcular : ";
   int limit ;

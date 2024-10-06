@@ -27,8 +27,7 @@ void ComentariosBloque::ProcesarLinea(const std::string& linea, const int& numer
 
 void ComentariosBloque::PrintIntervalo(std::ostream& os) const {
   std::vector<int> indices{GetIndices()};
-  os << std::endl << "COMMENTS:" << std::endl;
-  os << "[Line " << indices[0] << "-" << indices[1] << "] DESCRIPTION" << std::endl;
+  os << "[Line " << indices[0] << "-" << indices[1] << "]";
 }
 
 std::ostream& operator<<(std::ostream& os, const ComentariosBloque& otro) {

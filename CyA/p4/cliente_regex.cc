@@ -61,13 +61,16 @@ int main(int argc, char* argv[]) {
     if (!comentario.GetInicio()) {
       if (!comentario.GetBloque().empty()) {
         vector_comentarios.push_back(comentario);
-//        std::cout << comentario;
         comentario = ComentariosBloque();
       }
     }
     ++contador;
   }
   std::ofstream output_file{argv[2]};
+
+  output_file << "PROGRAM: " << argv[1] << std::endl;
+  output_file << "DESCRIPTION:" << std::endl;
+  output_file << vector_comentarios[0];       // el primer comentario en bloque es la descripción
 
   output_file << "VARIABLES:" << std::endl;
   for (auto imprimir : vector_variables) {
@@ -86,10 +89,18 @@ int main(int argc, char* argv[]) {
   else output_file << "False" << std::endl << std::endl;
 
   output_file << "COMMENTS:" << std::endl;
-//  std::cout << vector_comentarios.size();
-  for (auto imprimir : vector_comentarios) {
-    output_file << imprimir;
+  for (int i{0}; i < static_cast<int>(vector_comentarios.size()); ++i) {
+    if (i == 0) {
+      vector_comentarios[i].PrintIntervalo(output_file);
+      output_file << " DESCRIPTION" << std::endl;
+    }
+    else {
+      vector_comentarios[i].PrintIntervalo(output_file);
+      output_file << " COMENTARIO DE BLOQUE" << std::endl;
+    }
   }
+
+  // std::cout << vector_comentarios.size() << std::endl;
   input_file.close();
   return 0;
 }
