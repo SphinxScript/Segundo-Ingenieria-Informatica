@@ -16,8 +16,8 @@ VARIABLES:
 [Line 43] int limit ;
 
 STATEMENTS:
-[Line 23]for
-[Line 45]for
+[Line 23] for
+[Line 45] for
 
 MAIN:
 True
