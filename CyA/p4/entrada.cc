@@ -45,5 +45,5 @@ int main () {
   for (int i = 1; i <= limit ; ++ i ) {
   std :: cout << i << "! = " << (double) Factorial ( i ) << std :: endl ;
   }
-  return 0;
+  return 0; // comentario prueba
 }

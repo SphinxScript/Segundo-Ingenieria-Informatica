@@ -84,11 +84,12 @@ void EncuentraMain(const std::string& linea, bool& main) {
  * @param vector_lineas vector de objetos ComentariosLinea
  * @param linea linea sobre la que se busca
  * @param contador contador para contar el nº de linea
+ * @param comentario le pasamos el objeto ComentariosBloque que estamos analizando para comprobar si hay dos ocurrencias de "//" dentro de un comentario de bloque para así no añadirl como comentario de línea
  */
-void EncuentraComentariosLinea(std::vector<ComentariosLinea>& vector_lineas, const std::string& linea, const int& contador) {
-  std::regex expresion{"^\\s*\\/\\/.*"};
+void EncuentraComentariosLinea(std::vector<ComentariosLinea>& vector_lineas, const std::string& linea, const int& contador, ComentariosBloque& comentario) {
+  std::regex expresion{"\\s*\\/\\/.*"};
   std::smatch coincidencias;
-  if (std::regex_search(linea, coincidencias, expresion)) {
+  if (std::regex_search(linea, coincidencias, expresion) && !comentario.GetInicio()) {
     ComentariosLinea comentario{coincidencias.str(), contador};
     vector_lineas.push_back(comentario);
   }
@@ -122,7 +123,7 @@ void Programa(int argc, char* argv[]) {
       }
     }
 
-    EncuentraComentariosLinea(vector_comentarios_linea, linea, contador);
+    EncuentraComentariosLinea(vector_comentarios_linea, linea, contador, comentario);
     ++contador;
   }
   std::ofstream output_file{argv[2]};
