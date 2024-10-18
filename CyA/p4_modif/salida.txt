@@ -1,0 +1,30 @@
+PROGRAM: entrada.cc
+DESCRIPTION:
+/*
+ * Universidad de La Laguna
+ * Escuela Superior de Ingenieria y Tecnologia
+ * Informatica Basica
+ *
+ * @brief Ejercicios de programacion
+ * Version 1: Funcion factorial
+ *
+ * @see https :// github .com/IB -2023 -2024/ IB -class -code - examples /
+*/
+
+VARIABLES:
+[Line 22] int factorial = 1;
+[Line 35] int y = 5;
+[Line 44] int limit ;
+
+STATEMENTS:
+[Line 23] for
+[Line 46] for
+
+MAIN:
+True
+
+COMMENTS:
+[Line 1-10] DESCRIPTION
+[Line 31-40] COMENTARIO DE BLOQUE
+[Line 15] // Returns the factorial of the argument
+[Line 49]  // comentario prueba
