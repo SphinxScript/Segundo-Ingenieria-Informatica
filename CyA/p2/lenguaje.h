@@ -7,15 +7,15 @@
 // Autor: Ricardo David Rodríguez Pane
 // Correo: alu0101643137@ull.edu.es
 // Fecha: 19/09/2024
-// Archivo: conjunto.h
-// Contiene la definición de la clase conjunto
+// Archivo: lenguaje.h
+// Contiene la definición de la clase Lenguaje
 // Referencias:
 // Enlaces de interés
 // Historial de revisiones
 // 17/09/2024 - Creación (primera versión) del código
 
-#ifndef CONJUNTO_H
-#define CONJUNTO_H
+#ifndef LENGUAJE_H
+#define LENGUAJE_H
 
 #include <set>
 #include <iostream>
@@ -23,18 +23,18 @@
 
 #include "cadena.h"
 
-class Conjunto {
+class Lenguaje {
  public:
-  Conjunto() = default;
-  std::set<Cadena> GetConjunto() const { return conjunto_; }
+  Lenguaje() = default;
+  std::set<Cadena> GetLenguaje() const { return Lenguaje_; }
   void Insert(const Cadena&);
-  int Size() const { return conjunto_.size(); }
-  void ConjuntoPrefijos(const Cadena& cadena);
-  void ConjuntoSufijos(const Cadena& cadena);
+  int Size() const { return Lenguaje_.size(); }
+  void LenguajePrefijos(const Cadena& cadena);
+  void LenguajeSufijos(const Cadena& cadena);
  private:
-  std::set<Cadena> conjunto_;
+  std::set<Cadena> Lenguaje_;
 };
-std::ostream& operator<<(std::ostream& os, const Conjunto& conjunto);
+std::ostream& operator<<(std::ostream& os, const Lenguaje& Lenguaje);
 
 
 #endif

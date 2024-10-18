@@ -23,7 +23,7 @@
 #include "funciones.h"
 #include "alfabeto.h"
 #include "cadena.h"
-#include "conjunto.h"
+#include "lenguaje.h"
 
 /**
  * @brief método que comrpueba si el nº de parametros pasados al main son correctos
@@ -90,14 +90,14 @@ void programa(std::ifstream& File, std::ofstream& OutFile, std::string& linea, c
       }
       else if (opcode == "Prefijos") {
         Cadena Cadena{cadena};
-        Conjunto prefijos;
-        prefijos.ConjuntoPrefijos(Cadena);
+        Lenguaje prefijos;
+        prefijos.LenguajePrefijos(Cadena);
         OutFile << prefijos;
       }
       else if (opcode == "Sufijos") {
         Cadena Cadena{cadena};
-        Conjunto sufijos;
-        sufijos.ConjuntoSufijos(Cadena);
+        Lenguaje sufijos;
+        sufijos.LenguajeSufijos(Cadena);
         OutFile << sufijos << std::endl;
       }
       else {

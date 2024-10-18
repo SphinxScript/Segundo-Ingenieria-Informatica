@@ -35,7 +35,7 @@ std::string Cadena::Inversa() const {
   std::string cadenaInvertida;
   cadenaInvertida.resize(cadena.size());
   int indice{static_cast<int>(cadena.size()) - 1};
-  for (int i{0}; i < cadena.size(); ++i) {
+  for (int i{0}; i < static_cast<int>(cadena.size()); ++i) {
     cadenaInvertida[indice] = cadena[i];
     --indice;
   }

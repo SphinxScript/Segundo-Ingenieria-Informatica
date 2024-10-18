@@ -22,7 +22,7 @@
 
 #include "alfabeto.h"
 #include "cadena.h"
-#include "conjunto.h"
+#include "lenguaje.h"
 #include "funciones.h"
 
 

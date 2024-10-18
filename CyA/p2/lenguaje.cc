@@ -7,30 +7,30 @@
 // Autor: Ricardo David Rodríguez Pane
 // Correo: alu0101643137@ull.edu.es
 // Fecha: 19/09/2024
-// Archivo: conjunto.cc
-// Contiene la implementación de los métodos de la clase conjunto
+// Archivo: lenguaje.cc
+// Contiene la implementación de los métodos de la clase Lenguaje
 // Referencias:
 // Enlaces de interés
 // Historial de revisiones
 // 17/09/2024 - Creación (primera versión) del código
 
-#include "conjunto.h"
+#include "lenguaje.h"
 
 // se emplea el constructor por defecto ya que se crea el objeto insertando cadenas en él.
 
 /**
  * @brief método para insertar objetos cadena
- * @param cadena objeto cadena que se inserta en la clase conjunto.
+ * @param cadena objeto cadena que se inserta en la clase Lenguaje.
  */
-void Conjunto::Insert(const Cadena& cadena) {
-  conjunto_.insert(cadena);
+void Lenguaje::Insert(const Cadena& cadena) {
+  Lenguaje_.insert(cadena);
 }
 
 /**
- * @brief método que modifica el conjunto que llama al método y crea a partir de él un conjunto de prefijos
+ * @brief método que modifica el Lenguaje que llama al método y crea a partir de él un Lenguaje de prefijos
  * @param cadena objeto cadena que se usará para los prefijos.
  */
-void Conjunto::ConjuntoPrefijos(const Cadena& cadena) {
+void Lenguaje::LenguajePrefijos(const Cadena& cadena) {
   Cadena vacia{""};
   Insert(vacia);
   std::string copiaCadena = cadena.GetCadena();
@@ -43,10 +43,10 @@ void Conjunto::ConjuntoPrefijos(const Cadena& cadena) {
 }
 
 /**
- * @brief método que modifica el conjunto que llama al método y crea a partir de él un conjunto de sufijos
+ * @brief método que modifica el Lenguaje que llama al método y crea a partir de él un Lenguaje de sufijos
  * @param cadena objeto cadena que se usará para los sufijos.
  */
-void Conjunto::ConjuntoSufijos(const Cadena& cadena) {
+void Lenguaje::LenguajeSufijos(const Cadena& cadena) {
   Cadena vacia{""};
   Insert(vacia);
   std::string copiaCadena = cadena.GetCadena();
@@ -61,19 +61,19 @@ void Conjunto::ConjuntoSufijos(const Cadena& cadena) {
 }
 
 /**
- * @brief sobrecarga para imprimir objetos conjunto
+ * @brief sobrecarga para imprimir objetos Lenguaje
  * @param os flujo de salida
- * @param conjunto objeto conjunto que se imprimirá.
+ * @param Lenguaje objeto Lenguaje que se imprimirá.
  * @return os retorna el flujo de salida.
  */
-std::ostream& operator<<(std::ostream& os, const Conjunto& conjunto) {
-  std::set<Cadena> cadenas = conjunto.GetConjunto();
+std::ostream& operator<<(std::ostream& os, const Lenguaje& Lenguaje) {
+  std::set<Cadena> cadenas = Lenguaje.GetLenguaje();
   os << "{";
   int contador{0};
   for (const auto& cadena : cadenas) {
     os << cadena;
     ++contador;
-    if (contador != conjunto.Size()) {
+    if (contador != Lenguaje.Size()) {
       os << ", ";
     }
   }
