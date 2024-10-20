@@ -2,6 +2,7 @@
 #define ESTADO_H
 
 #include <vector>
+#include <set>
 #include "transicion.h"
 
 class Estado {
@@ -15,6 +16,7 @@ class Estado {
   int GetAceptacion() const { return aceptacion_; }
   int GetNumeroTransiciones() const { return numero_transiciones_; }
   std::vector<Transicion> GetTransiciones() const { return transiciones_; }
+  bool operator<(const Estado& estado) const { return estado_ < estado.GetEstado(); }
  private:
   int estado_;
   std::vector<Transicion> transiciones_;

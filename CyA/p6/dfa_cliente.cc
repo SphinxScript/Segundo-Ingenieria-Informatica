@@ -6,15 +6,15 @@
 #include "alfabeto.h"
 #include "cadena.h"
 #include "transicion.h"
+#include "estado.h"
 #include "dfa.h"
 
 
-int main(int argc, char* argv[]) {
-  system("clear");
-  std::fstream inputfile{argv[1]};
+void CreaDfa(const std::string& nombre_fichero, Dfa& dfa, Alfabeto& alfabeto) {
+  std::fstream inputfile{nombre_fichero};
   std::string linea_alfabeto;
   std::getline(inputfile, linea_alfabeto);
-  Alfabeto alfabeto{linea_alfabeto};      //alfabeto del dfa
+  alfabeto = linea_alfabeto;      //alfabeto del dfa
   std::string linea_estados;
   std::getline(inputfile, linea_estados);
   int numero_estados{std::stoi(linea_estados)};  //numero de estados del dfa
@@ -22,7 +22,7 @@ int main(int argc, char* argv[]) {
   std::getline(inputfile, linea_estado_inicial);
   int estado_inicial = std::stoi(linea_estado_inicial);  //estado inicial del dfa
   std::string lineas_estados;
-  Dfa dfa;
+  std::set<Estado> estados;
   while (std::getline(inputfile, lineas_estados)) {
     std::istringstream iss{lineas_estados};
     Estado estado_actual;       //objeto a crear estado actual
@@ -50,7 +50,18 @@ int main(int argc, char* argv[]) {
       transicion = Transicion{simbolo, estado_siguiente};
       estado_actual.InsertTransicion(transicion);
     }
-    std::cout << estado_actual << std::endl;
+    estados.insert(estado_actual);
   }
+  dfa = Dfa{alfabeto, numero_estados, estado_inicial, estados};
+}
+
+
+int main(int argc, char* argv[]) {
+  system("clear");
+  Dfa dfa;
+  Estado estado_actual;
+  Alfabeto alfabeto;
+  CreaDfa(argv[1], dfa, alfabeto);
+  std::cout << dfa << std::endl;
   return 0;
 }

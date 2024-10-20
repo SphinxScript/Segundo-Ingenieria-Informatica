@@ -11,13 +11,18 @@
 class Dfa {
  public:
   Dfa() = default;
-  Dfa(const Alfabeto& alfabeto, unsigned numero_estados, unsigned estado_inicial, const std::set<Estado>& estados);
+  Dfa(const Alfabeto& alfabeto, int numero_estados, int estado_inicial, const std::set<Estado>& estados);
+  Alfabeto GetAlfabeto() const { return alfabeto_; }
+  int GetNumeroEstados() const { return numero_estados_; }
+  int GetEstadoInicial() const { return estado_inicial_; }
+  std::set<Estado> GetEstados() const { return estados_; }
  private:
   Alfabeto alfabeto_;
-  unsigned numero_estados_;
-  unsigned estado_inicial_;
+  int numero_estados_;
+  int estado_inicial_;
   std::set<Estado> estados_;
 };
+std::ostream& operator<<(std::ostream& os, const Dfa& dfa);
 
 
 #endif
