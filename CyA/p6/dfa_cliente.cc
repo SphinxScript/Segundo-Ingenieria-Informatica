@@ -30,13 +30,13 @@ void CreaDfa(const std::string& nombre_fichero, Dfa& dfa, Alfabeto& alfabeto) {
     int estado;
     iss >> estado;              //estado actual
     if (estado > numero_estados || estado < 0) {
-      std::cerr << "Error: Algún estado no es valido" << std::endl;
+      std::cerr << "Error: el estado " << estado << " no es valido" << std::endl;
       exit(1);
     }
     int aceptacion;
     iss >> aceptacion;          //estado de aceptacion
     if (aceptacion > numero_estados || aceptacion < 0) {
-      std::cerr << "Error: Estado de aceptacion no valido" << std::endl;
+      std::cerr << "Error: el estado de aceptacion no es valido" << std::endl;
       exit(1);
     }
     int transiciones_del_estado;
@@ -61,7 +61,7 @@ void CreaDfa(const std::string& nombre_fichero, Dfa& dfa, Alfabeto& alfabeto) {
       estado_actual.InsertTransicion(transicion);
     }
     estados.insert(estado_actual);
-    std::cout << estado_actual << std::endl;
+    //std::cout << estado_actual << std::endl;
   }
   dfa = Dfa{alfabeto, numero_estados, estado_inicial, estados};
 }
@@ -73,6 +73,6 @@ int main(int argc, char* argv[]) {
   Estado estado_actual;
   Alfabeto alfabeto;
   CreaDfa(argv[1], dfa, alfabeto);
-  //std::cout << dfa << std::endl;
+  std::cout << dfa;
   return 0;
 }

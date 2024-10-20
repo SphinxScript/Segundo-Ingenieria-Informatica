@@ -35,7 +35,7 @@ Alfabeto::Alfabeto(const std::string& cadena) {
 void Alfabeto::CheckSymbol(const char& caracter) const {
   bool forma_parte{false};
   for (const char& c : GetAlfabeto()) {
-    if (c == caracter || c == '&') {
+    if (c == caracter || caracter == '&') {
       forma_parte = true;
     }
   }

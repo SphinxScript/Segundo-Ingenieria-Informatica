@@ -16,6 +16,7 @@ class Dfa {
   int GetNumeroEstados() const { return numero_estados_; }
   int GetEstadoInicial() const { return estado_inicial_; }
   std::set<Estado> GetEstados() const { return estados_; }
+  bool ProcesarCadena(const std::string& cadena) const;
  private:
   Alfabeto alfabeto_;
   int numero_estados_;
