@@ -38,3 +38,4 @@ fi
 if [ -n $user ]; then
   processes=$(filter_by_user "$processes" "$user")
 fi
+
