@@ -23,7 +23,12 @@
  */
 Alfabeto::Alfabeto(const std::string& cadena) {
   for (char c : cadena) {
-    alfabeto_.insert(c);
+    if (c == ' ') {
+      continue;
+    }
+    else {
+      alfabeto_.insert(c);
+    }
   }
 }
 
