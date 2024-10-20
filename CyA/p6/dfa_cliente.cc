@@ -2,6 +2,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <map>
 
 #include "alfabeto.h"
 #include "cadena.h"
@@ -28,8 +29,16 @@ void CreaDfa(const std::string& nombre_fichero, Dfa& dfa, Alfabeto& alfabeto) {
     Estado estado_actual;       //objeto a crear estado actual
     int estado;
     iss >> estado;              //estado actual
+    if (estado > numero_estados || estado < 0) {
+      std::cerr << "Error: Algún estado no es valido" << std::endl;
+      exit(1);
+    }
     int aceptacion;
     iss >> aceptacion;          //estado de aceptacion
+    if (aceptacion > numero_estados || aceptacion < 0) {
+      std::cerr << "Error: Estado de aceptacion no valido" << std::endl;
+      exit(1);
+    }
     int transiciones_del_estado;
     iss >> transiciones_del_estado;       //numero de transiciones del estado
     estado_actual = Estado{estado, aceptacion, transiciones_del_estado};
@@ -46,11 +55,13 @@ void CreaDfa(const std::string& nombre_fichero, Dfa& dfa, Alfabeto& alfabeto) {
     for (int i{0}; i < static_cast<int>(transiciones_sin_espacios.size()) - 1; i += 2){
       int j = i + 1;
       char simbolo{transiciones_sin_espacios[i]};
+      alfabeto.CheckSymbol(simbolo);
       int estado_siguiente{transiciones_sin_espacios[j] - '0'};
       transicion = Transicion{simbolo, estado_siguiente};
       estado_actual.InsertTransicion(transicion);
     }
     estados.insert(estado_actual);
+    std::cout << estado_actual << std::endl;
   }
   dfa = Dfa{alfabeto, numero_estados, estado_inicial, estados};
 }
@@ -62,6 +73,6 @@ int main(int argc, char* argv[]) {
   Estado estado_actual;
   Alfabeto alfabeto;
   CreaDfa(argv[1], dfa, alfabeto);
-  std::cout << dfa << std::endl;
+  //std::cout << dfa << std::endl;
   return 0;
 }

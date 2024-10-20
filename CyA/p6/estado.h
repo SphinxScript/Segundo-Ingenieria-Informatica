@@ -11,7 +11,7 @@ class Estado {
   // implemento de esta forma el el constructor ya que es simple y asi no creo
   // otro archivo de implementacion
   Estado(int estado, int aceptacion, int numero_transiciones) : estado_{estado}, aceptacion_{aceptacion}, numero_transiciones_{numero_transiciones} {}
-  void InsertTransicion(Transicion transicion) { transiciones_.push_back(transicion); }
+  void InsertTransicion(Transicion transicion);
   int GetEstado() const { return estado_; }
   int GetAceptacion() const { return aceptacion_; }
   int GetNumeroTransiciones() const { return numero_transiciones_; }
