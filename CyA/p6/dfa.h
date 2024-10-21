@@ -20,7 +20,6 @@ class Dfa {
  private:
   bool ValidarCadena(const std::string& cadena) const;
   std::set<int> ExplorarEpsilonTransiciones(const std::set<int>& estados) const;
-  std::set<Estado> EpsilonClosure(const std::set<Estado>&) const;
   Alfabeto alfabeto_;
   int numero_estados_;
   int estado_inicial_;

@@ -8,13 +8,6 @@ Dfa::Dfa(const Alfabeto& alfabeto, int numero_estados, int estado_inicial, const
 
 }
 
-std::set<Estado> Dfa::EpsilonClosure(const std::set<Estado>& estados) const {
-  std::set<Estado> epsilon_cerradura;
-  for (const Estado& estado : estados) {
-    epsilon_cerradura.insert(estado);
-  }
-  return epsilon_cerradura;
-}
 
 // funcion auxiliar para explorar todas las epsilontransiciones desde un conjunto de estados
 std::set<int> Dfa::ExplorarEpsilonTransiciones(const std::set<int>& estados) const {
@@ -31,7 +24,7 @@ std::set<int> Dfa::ExplorarEpsilonTransiciones(const std::set<int>& estados) con
     int estado_actual = pila_estados.top();
     pila_estados.pop();
 
-    // obtenemos las transiciones epsilon ('&') del estado actual
+    // obtenemos las transiciones epsilon '&' del estado actual
     const std::multimap<char, int>& transiciones = estados_.at(estado_actual).GetTransiciones();
     std::pair<std::multimap<char, int>::const_iterator, std::multimap<char, int>::const_iterator> rango_epsilon = transiciones.equal_range('&');
 
@@ -76,7 +69,7 @@ bool Dfa::ValidarCadena(const std::string& cadena) const {
       return false;  // si hay un simbolo que no esta en el alfabeto y no es '&', la cadena es rechazada
     }
 
-    // conjunto para almacenar los nuevos estados a los que podemos movernos
+    // conjunto para almacenar los nuevos estados a los que podemos ir
     std::set<int> nuevos_estados;
     
     // recorremos cada estado actual
@@ -88,11 +81,12 @@ bool Dfa::ValidarCadena(const std::string& cadena) const {
         // si el simbolo es '&', procesamos solo las epsilontransiciones
         std::pair<std::multimap<char, int>::const_iterator, std::multimap<char, int>::const_iterator> rango_epsilon = transiciones.equal_range('&');
         
-        // añadimos los estados a los que podemos transitar con epsilontransiciones
+        // añadimos los estados a los que podemos ir con epsilontransiciones
         for (std::multimap<char, int>::const_iterator it = rango_epsilon.first; it != rango_epsilon.second; ++it) {
           nuevos_estados.insert(it->second);
         }
-      } else {
+      }
+      else {
         // procesamos las transiciones normales con el simbolo actual
         std::pair<std::multimap<char, int>::const_iterator, std::multimap<char, int>::const_iterator> rango = transiciones.equal_range(c);
 
@@ -103,7 +97,7 @@ bool Dfa::ValidarCadena(const std::string& cadena) const {
       }
     }
 
-    // si no hay nuevos estados y no procesamos ninguna transicion epsilon, la cadena es rechazada
+    // si no se puede transitar a ningun estado válido, el automata rechaza la cadena
     if (nuevos_estados.empty()) {
       return false;
     }
