@@ -1,7 +1,7 @@
 CXX = g++
-CXXFLAGS = -std=c++17 -Wall
+CXXFLAGS = -std=c++23 -Wall
 TARGET = ejecutable.out
-SOURCE = alfabeto.cc cadena.cc dfa_cliente.cc transicion.cc estado.cc dfa.cc
+SOURCE = alfabeto.cc cadena.cc dfa_cliente.cc estado.cc dfa.cc
 
 $(TARGET): $(SOURCE)
 	$(CXX) $(CXXFLAGS) -o $(TARGET) $(SOURCE)

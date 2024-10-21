@@ -32,17 +32,14 @@ Alfabeto::Alfabeto(const std::string& cadena) {
   }
 }
 
-void Alfabeto::CheckSymbol(const char& caracter) const {
+bool Alfabeto::CheckSymbol(const char& caracter) const {
   bool forma_parte{false};
   for (const char& c : GetAlfabeto()) {
     if (c == caracter || caracter == '&') {
       forma_parte = true;
     }
   }
-  if (!forma_parte) {
-    std::cerr << "Error: el simbolo " << caracter << " no forma parte del alfabeto" << std::endl;
-    exit(1);
-  }
+  return forma_parte;
 }
 
 

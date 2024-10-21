@@ -28,7 +28,7 @@ class Alfabeto {
   Alfabeto(const std::string& cadena);
   std::set<char> GetAlfabeto() const { return alfabeto_; }
   int GetSize() const { return alfabeto_.size(); }
-  void CheckSymbol(const char& caracter) const;
+  bool CheckSymbol(const char& caracter) const;
  private:
   std::set<char> alfabeto_;
 };
