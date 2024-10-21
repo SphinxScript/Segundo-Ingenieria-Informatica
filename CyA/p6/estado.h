@@ -1,3 +1,19 @@
+// Universidad de La Laguna
+// Escuela Superior de Ingeniería y Tecnología
+// Grado en Ingeniería Informática
+// Asignatura: Computabilidad y Algoritmia
+// Curso: 2º
+// Práctica 6: Diseño e implementación de un simulador de autómatas finitos
+// Autor: Ricardo David Rodríguez Pane
+// Correo: alu0101643137@ull.edu.es
+// Fecha: 17/10/2024
+// Archivo: estado.h
+// Contiene la declaración de la clase estado
+// Referencias:
+// Enlaces de interés
+// Historial de revisiones
+// 17/09/2024 - Creación (primera versión) del código
+
 #ifndef ESTADO_H
 #define ESTADO_H
 

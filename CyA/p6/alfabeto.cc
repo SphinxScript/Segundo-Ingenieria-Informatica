@@ -6,7 +6,7 @@
 // Práctica 2: Cadenas y lenguajes
 // Autor: Ricardo David Rodríguez Pane
 // Correo: alu0101643137@ull.edu.es
-// Fecha: 19/09/2024
+// Fecha: 17/10/2024
 // Archivo: alfabeto.cc
 // Contiene la implementación de los métodos de la clase alfabeto
 // Referencias:
@@ -32,6 +32,11 @@ Alfabeto::Alfabeto(const std::string& cadena) {
   }
 }
 
+/**
+ * @brief: funcion que comprueba si un simbolo pertenece al alfabeto
+ * @param caracter: el simbolo que se va a comprobar
+ * @return: true si el simbolo pertenece al alfabeto, false en caso contrario
+ */
 bool Alfabeto::CheckSymbol(const char& caracter) const {
   bool forma_parte{false};
   for (const char& c : GetAlfabeto()) {

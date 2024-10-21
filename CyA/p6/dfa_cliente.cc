@@ -1,3 +1,19 @@
+// Universidad de La Laguna
+// Escuela Superior de Ingeniería y Tecnología
+// Grado en Ingeniería Informática
+// Asignatura: Computabilidad y Algoritmia
+// Curso: 2º
+// Práctica 6: Diseño e implementación de un simulador de autómatas finitos
+// Autor: Ricardo David Rodríguez Pane
+// Correo: alu0101643137@ull.edu.es
+// Fecha: 17/10/2024
+// Archivo: dfa_cliente.cc
+// Contiene la implementación del programa cliente. Tanto main como funciones auxiliares.
+// Referencias:
+// Enlaces de interés
+// Historial de revisiones
+// 17/09/2024 - Creación (primera versión) del código
+
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -9,6 +25,13 @@
 #include "estado.h"
 #include "dfa.h"
 
+/**
+ * @brief Esta función se encarga de crear el objeto Dfa a partir de un fichero de texto pasado como argumento.
+ * @param nombre_fichero el nombre del fichero de texto que se le pasa a la función.
+ * @param dfa el objeto Dfa que se va a crear.
+ * @param alfabeto el alfabeto del dfa.
+ * @return void
+ */
 void CreaDfa(const std::string& nombre_fichero, Dfa& dfa, Alfabeto& alfabeto) {
   std::fstream inputfile{nombre_fichero};
   std::string linea_alfabeto;
@@ -39,7 +62,6 @@ void CreaDfa(const std::string& nombre_fichero, Dfa& dfa, Alfabeto& alfabeto) {
     }
     int transiciones_del_estado;
     iss >> transiciones_del_estado;       // número de transiciones del estado
-    estado_actual = Estado{estado, aceptacion, transiciones_del_estado};
     std::string transiciones;
     std::getline(iss, transiciones);      // string con las transiciones del estado
     std::string transiciones_sin_espacios;
@@ -60,11 +82,15 @@ void CreaDfa(const std::string& nombre_fichero, Dfa& dfa, Alfabeto& alfabeto) {
       estado_actual.InsertTransicion(simbolo, estado_siguiente);
     }
     estados[estado] = estado_actual;
-    // std::cout << estado_actual << std::endl;
   }
   dfa = Dfa{alfabeto, numero_estados, estado_inicial, estados};
 }
 
+/**
+ * @brief Esta función se encarga de crear un vector de cadenas a partir de un fichero de texto pasado como argumento.
+ * @param inputfile el nombre del fichero de texto que se le pasa a la función.
+ * @return std::vector<Cadena> el vector de cadenas creado.
+ */
 std::vector<Cadena> VectorDeCadenas(const std::string& inputfile) {
   std::vector<Cadena> cadenas;
   std::ifstream file{inputfile};
@@ -79,13 +105,19 @@ std::vector<Cadena> VectorDeCadenas(const std::string& inputfile) {
   return cadenas;
 }
 
+/**
+ * @brief Función principal main() del programa.
+ * @param argc número de argumentos pasados al programa.
+ * @param argv argumentos pasados al programa.
+ * @return 0 si el programa se ha ejecutado correctamente.
+ */
 int main(int argc, char* argv[]) {
   system("clear");
   Dfa dfa;
   Alfabeto alfabeto;
   CreaDfa(argv[1], dfa, alfabeto);
   std::vector<Cadena> cadenas = VectorDeCadenas(argv[2]);
-  // std::cout << dfa;
+  //std::cout << dfa;
   dfa.ProcesarCadenas(cadenas);
   //std::cout << dfa;
   return 0;
