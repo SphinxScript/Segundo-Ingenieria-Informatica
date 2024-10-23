@@ -1,6 +1,6 @@
 module mux2_4(output reg [3:0] Out, input wire [3:0] A, input wire [3:0] B, input wire s);
 
-    always @(A,B,s)
+  always @(A, B, s)
     begin
       if (s)
         Out = B;

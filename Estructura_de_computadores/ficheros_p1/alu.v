@@ -10,8 +10,7 @@ module alu(output wire [3:0] R, output wire zero, carry, sign, input wire [3:0] 
 
   mux2_4 selector(R, sum4_out, ul4_out, Op[2]);
 
-  assign{zero} = (R == 4'b0000) ? 1 : 0;
-  assign{sign} = R[3];
-  assign{carry} = (carry) ? 1 : 0;
+  assign zero = (R == 4'b0000) ? 1 : 0;
+  assign sign = R[3];
 
 endmodule
