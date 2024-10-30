@@ -53,10 +53,11 @@ std::set<int> Dfa::EpsilonClausura(const std::set<int>& estados) const {
     int estado_actual = pila_estados.top();
     // sacamos el estado de la pila ya que se va a procesar
     pila_estados.pop();
-
-    // creamos un multimap<char, int> (char es el simbolo, int es el estado al que transita) a partir del estado actual 
-    // estados_at(estado_actual) devuelve el valor de la clave (el objeto Estado) asociado con la clave (nuestro estado actual)
-    // GetTransiciones() devuelve el multimapa<char, int> de las transiciones del estado
+      /*
+        creamos un multimap<char, int> (char es el simbolo, int es el estado al que transita) a partir del estado actual 
+        estados_at(estado_actual) devuelve el valor de la clave (el objeto Estado) asociado con la clave (nuestro estado actual)
+        GetTransiciones() devuelve el multimapa<char, int> de las transiciones del estado
+     */
     const std::multimap<char, int>& transiciones = estados_.at(estado_actual).GetTransiciones();
 
     // ahora declaramos un objeto pair de iteradores constantes para recorrer el multimapa (transiciones del estado actual)

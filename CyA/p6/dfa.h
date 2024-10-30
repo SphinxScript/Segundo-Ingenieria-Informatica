@@ -42,6 +42,7 @@ class Dfa {
   int estado_inicial_;
   std::map<int, Estado> estados_;
 };
+
 std::ostream& operator<<(std::ostream& os, const Dfa& dfa);
 
 

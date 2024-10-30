@@ -19,11 +19,22 @@
 #include <sstream>
 #include <string>
 #include <map>
+#include <set>
+#include <stack>
 
 #include "alfabeto.h"
 #include "cadena.h"
 #include "estado.h"
 #include "dfa.h"
+
+bool usage(int argc) {
+  bool correcto = true;
+  if (argc != 3) {
+    correcto = false;
+    return correcto;
+  }
+  return correcto;
+}
 
 /**
  * @brief Esta función se encarga de crear el objeto Dfa a partir de un fichero de texto pasado como argumento.
@@ -47,7 +58,7 @@ void CreaDfa(const std::string& nombre_fichero, Dfa& dfa, Alfabeto& alfabeto) {
   std::map<int, Estado> estados;
   while (std::getline(inputfile, lineas_estados)) {
     std::istringstream iss{lineas_estados};
-    Estado estado_actual;       // objeto a crear estado actual
+    Estado estado_actual;       // objeto Estado a crear estado actual
     int estado;
     iss >> estado;              // estado actual
     if (estado > numero_estados || estado < 0) {
@@ -105,6 +116,22 @@ std::vector<Cadena> VectorDeCadenas(const std::string& inputfile) {
   return cadenas;
 }
 
+// modificacion:
+void DfaONfa(const Dfa& dfa, const Alfabeto& alfabeto) {
+  std::map<int, Estado> estados = dfa.GetEstados();
+  for (std::pair estado : estados) {
+    Estado estado_actual = estado.second;
+    if (estado_actual.GetNumeroTransiciones() > alfabeto.GetSize()) {
+      std::cout << "Es NFA" << std::endl;
+      break;
+    }
+    else {
+      std::cout << "Es DFA" << std::endl;
+      break;
+    }
+  }
+}
+
 /**
  * @brief Función principal main() del programa.
  * @param argc número de argumentos pasados al programa.
@@ -113,9 +140,16 @@ std::vector<Cadena> VectorDeCadenas(const std::string& inputfile) {
  */
 int main(int argc, char* argv[]) {
   system("clear");
+  if (!usage(argc)) {
+    std::cerr << "Error: el programa se debe ejecutar de la siguiente forma: " << std::endl;
+    std::cerr << "./dfa_cliente <nombre_fichero> <nombre_fichero>" << std::endl;
+    std::cerr << "El primer fichero debe contener la definición del dfa y el segundo las cadenas a procesar" << std::endl;
+    return 1;
+  }
   Dfa dfa;
   Alfabeto alfabeto;
   CreaDfa(argv[1], dfa, alfabeto);
+  DfaONfa(dfa, alfabeto);
   std::vector<Cadena> cadenas = VectorDeCadenas(argv[2]);
   //std::cout << dfa;
   dfa.ProcesarCadenas(cadenas);
