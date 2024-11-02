@@ -54,7 +54,7 @@ Alfabeto CreaAlfabeto(std::ifstream& input_file) {
   return alfabeto;
 }
 
-void SimbolosNoTerminales(std::ifstream& input_file, std::set<char>& simbolos_no_terminales, char& arranque)  {
+void SimbolosNoTerminales(std::ifstream& input_file, std::set<std::string>& simbolos_no_terminales, char& arranque)  {
   // limpiamos los distintos marcadores de error del fichero. No hace falta mover el puntero
   // de lectura al principio del fichero ya que esta función se llama después de CreaAlfabeto() y seguimos leyendo el fichero a partir de ahí
   input_file.clear();
@@ -65,7 +65,7 @@ void SimbolosNoTerminales(std::ifstream& input_file, std::set<char>& simbolos_no
     if (i == 0) {
       arranque = linea[0];
     }
-    simbolos_no_terminales.insert(linea[0]);
+    simbolos_no_terminales.insert(std::string(1, linea[0]));
   }
 }
 
@@ -107,12 +107,13 @@ int main(int argc, char* argv[]) {
   }
   else {
     Alfabeto alfabeto = CreaAlfabeto(input_file);   // creamos el alfabeto de la gramatica
-    std::set<char> simbolos_no_terminales;          // creamos el conjunto de simbolos no terminales
+    std::set<std::string> simbolos_no_terminales;          // creamos el conjunto de simbolos no terminales
     char arranque;                                  // creamos el simbolo de arranque
     SimbolosNoTerminales(input_file, simbolos_no_terminales, arranque); // inicializo los simbolos no terminales y el de arranque
     std::multimap<std::string, std::string> producciones{CreaProducciones(input_file)}; // creamos las producciones de la gramatica
     Gramatica gramatica(alfabeto, arranque, simbolos_no_terminales, producciones); // creamos la gramatica
-    std::cout << gramatica << std::endl; // mostramos la gramatica
+    //std::cout << gramatica << std::endl; // mostramos la gramatica
+    gramatica.ConvierteCNF(); // convertimos la gramatica a CNF
   }
   return 0;
 }
