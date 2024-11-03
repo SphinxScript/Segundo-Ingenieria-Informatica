@@ -8,7 +8,7 @@
 #include "alfabeto.h"
 
 bool Usage(int argc) {
-  return (argc != 3 && argc != 2) ? false : true;
+  return ((argc != 3 && argc != 2) || argc < 3) ? false : true;
 }
 
 bool CompruebaHelp(const std::string& str) {
@@ -88,7 +88,7 @@ std::multimap<std::string, std::string> CreaProducciones(std::ifstream& input_fi
 
 int main(int argc, char* argv[]) {
   system("clear");
-  if (!Usage(argc)) {
+  if (!Usage(argc) || argc == 1) {
     std::cerr << "Error en la llamada al programa." << std::endl;
     std::cerr << "Uso: ./grammar2CNF_cliente <fichero_entrada> <fichero_salida>" << std::endl;
     std::cout << "Para más información, ./grammar2CNF_cliente --help" << std::endl;
@@ -101,6 +101,11 @@ int main(int argc, char* argv[]) {
     return 0;
   }
   std::ifstream input_file(argv[1]);
+  if (!input_file.is_open()) {
+    std::cerr << "Error al abrir el fichero" << std::endl;
+    std::cerr << "Asegúrese de que está correctamente escrito" << std::endl;
+    return 1;
+  }
   if (!CompruebaGramatica(input_file)) {
     std::cerr << "Error en la gramática." << std::endl;
     std::cerr << "La gramática introducida no es válida. Hay alguna producción unitaria o vacía." << std::endl;
@@ -112,11 +117,9 @@ int main(int argc, char* argv[]) {
     SimbolosNoTerminales(input_file, simbolos_no_terminales, arranque); // inicializo los simbolos no terminales y el de arranque
     std::multimap<std::string, std::string> producciones{CreaProducciones(input_file)}; // creamos las producciones de la gramatica
     Gramatica gramatica(alfabeto, arranque, simbolos_no_terminales, producciones); // creamos la gramatica
-    //std::cout << gramatica << std::endl; // mostramos la gramatica
     Gramatica gramatica_cnf = gramatica.ConvierteCNF(); // convertimos la gramatica a CNF
     std::ofstream output_file(argv[2]); // creamos el fichero de salida
     output_file << gramatica_cnf; // escribimos la gramatica en el fichero de salida
-    std::cout << gramatica_cnf;
   }
   return 0;
 }
