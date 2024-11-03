@@ -113,7 +113,10 @@ int main(int argc, char* argv[]) {
     std::multimap<std::string, std::string> producciones{CreaProducciones(input_file)}; // creamos las producciones de la gramatica
     Gramatica gramatica(alfabeto, arranque, simbolos_no_terminales, producciones); // creamos la gramatica
     //std::cout << gramatica << std::endl; // mostramos la gramatica
-    gramatica.ConvierteCNF(); // convertimos la gramatica a CNF
+    Gramatica gramatica_cnf = gramatica.ConvierteCNF(); // convertimos la gramatica a CNF
+    std::ofstream output_file(argv[2]); // creamos el fichero de salida
+    output_file << gramatica_cnf; // escribimos la gramatica en el fichero de salida
+    std::cout << gramatica_cnf;
   }
   return 0;
 }

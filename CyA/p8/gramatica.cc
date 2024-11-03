@@ -3,6 +3,53 @@
 
 #include "gramatica.h"
 
+int Gramatica::CuentaSimbolos(const std::string& produccion) const {
+  int contador = 0;
+
+  for (int i{0}; i < static_cast<int>(produccion.size()); ++i) {
+    if (produccion[i] == 'C' && i + 1 < static_cast<int>(produccion.size()) && islower(produccion[i + 1])) {
+      // Detectamos un símbolo del tipo "Cx", lo contamos como un solo símbolo
+      ++contador;
+      ++i;  // Avanzamos el índice para saltar el caracter que acompaña a 'C'
+    }
+    else {
+      // Contamos cualquier otro símbolo de forma individual
+      ++contador;
+    }
+  }
+
+  return contador;
+}
+
+std::vector<std::string> Gramatica::CreaVectorProduccion(const std::string& produccion) const {
+  std::vector<std::string> vector_produccion;
+  for (int i{0}; i < static_cast<int>(produccion.size()); ++i) {
+    if (produccion[i] == 'C' && i + 1 < static_cast<int>(produccion.size()) && islower(produccion[i + 1])) {
+      // Detectamos un símbolo del tipo "Cx", lo añadimos al vector
+      vector_produccion.push_back(std::string{"C" + std::string(1, produccion[i + 1])});
+      ++i;  // Avanzamos el índice para saltar el caracter que acompaña a 'C'
+    }
+    else {
+      // Añadimos cualquier otro símbolo al vector
+      vector_produccion.push_back(std::string{produccion[i]});
+    }
+  }
+  return vector_produccion;
+}
+
+std::vector<std::string> Gramatica::CreaProductoresD(const std::string& produccion, int& contador) const {
+  std::vector<std::string> productores_D;
+  for (int i{0}; i < CuentaSimbolos(produccion) - 2; ++i) {
+    productores_D.push_back(std::string{"D" + std::to_string(contador)});
+    ++contador;
+  }
+  // for (const auto& productor : productores_D) {
+  //   std::cout << productor;
+  // }
+  // std::cout << std::endl;
+  return productores_D;
+}
+
 Gramatica Gramatica::ConvierteCNF() const {
   Gramatica gramatica{*this};         // copia de la gramática original
 
@@ -11,6 +58,8 @@ Gramatica Gramatica::ConvierteCNF() const {
   
   // creo una copia de las producciones para no modificar las originales
   std::multimap<std::string, std::string> producciones_cnf = producciones;
+
+  std::set<std::string> simbolos_no_terminales{gramatica.GetSimbolosNoTerminales()};  // conjunto de símbolos no terminales
 
   // PRIMER BUCLE DEL ALGORITMO
 
@@ -30,6 +79,7 @@ Gramatica Gramatica::ConvierteCNF() const {
           }
           if (!existe) {      // si no existe, insertamos en producciones_cnf el nuevo productor junto a su producción, que será el terminal
             producciones_cnf.insert(std::make_pair(std::string{nuevo_productor}, std::string(1, simbolo)));
+            simbolos_no_terminales.insert(nuevo_productor);  // añadimos el nuevo productor al conjunto de símbolos no terminales
           }
         }
       }
@@ -55,10 +105,34 @@ Gramatica Gramatica::ConvierteCNF() const {
 
   // SEGUNDO BUCLE DEL ALGORITMO
 
-
-  for (const auto& produccion : producciones_cnf) {
-    std::cout << produccion.first << " -> " << produccion.second << std::endl;
+  std::multimap<std::string, std::string> producciones_cnf_copia = producciones_cnf;  // Copia de las producciones CNF
+  producciones_cnf.clear();  // Limpiamos las producciones CNF
+  int contador{1}; // contador para saber el indice de las producciones Dx...
+  for (const std::pair<const std::string, std::string>& produccion : producciones_cnf_copia) {
+    if (CuentaSimbolos(produccion.second) >= 3) {  // Si lo producido tiene al menos 3 símbolos
+      std::vector<std::string> cadena_producidos{CreaVectorProduccion(produccion.second)};   // vector con la parte derecha de la produccion original (A1,A2, ..., An)
+      std::vector<std::string> nuevos_productores{CreaProductoresD(produccion.second, contador)};  // Vector con (D1, D1, ..., D,)
+      for (int i{0}; i < static_cast<int>(nuevos_productores.size()); ++i) {
+        simbolos_no_terminales.insert(nuevos_productores[i]);  // Añadimos los nuevos productores al conjunto de símbolos no terminales
+      }
+      for (int i{0}; i < static_cast<int>(cadena_producidos.size()) - 1; ++i) {
+        if (i == 0) {
+          producciones_cnf.insert(std::make_pair(produccion.first, cadena_producidos[i] + nuevos_productores[i]));  // Añadimos la primera producción
+        } else if (i == static_cast<int>(cadena_producidos.size()) - 2) {
+          producciones_cnf.insert(std::make_pair(nuevos_productores[i - 1], cadena_producidos[i] + cadena_producidos[i + 1]));  // Añadimos la última producción correctamente
+        } else {
+          producciones_cnf.insert(std::make_pair(nuevos_productores[i - 1], cadena_producidos[i] + nuevos_productores[i]));  // Añadimos las producciones intermedias
+        }
+      }
+    }
+    else {
+      producciones_cnf.insert(produccion);  // Si no tiene al menos 3 símbolos, la añadimos directamente
+    }
   }
+  // ahora actualizamos la gramatica con el mismo alfabeto, mismo simbolo de arranque, le pasamos los simbolos terminales actualizados
+  // y las producciones actualizadas (producciones_cnf)
+  gramatica = Gramatica(alfabeto_, arranque_, simbolos_no_terminales, producciones_cnf);  // Actualizamos la gramática original
+
   return gramatica;
 }
 
@@ -69,7 +143,7 @@ std::ostream& operator<<(std::ostream& os, const Gramatica& gramatica) {
     os << no_terminal << " ";
   }
   os << std::endl;
-  os << "Arranque: " << gramatica.GetArranque() << std::endl;
+  os << "Arranque: " << gramatica.GetArranque() << std::endl << std::endl;
   os << "Producciones: " << std::endl;
   for (const std::pair<const std::string, std::string>& produccion : gramatica.GetProducciones()) {
     os << produccion.first << " -> " << produccion.second << std::endl;

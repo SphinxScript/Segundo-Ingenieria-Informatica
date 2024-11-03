@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <map>
+#include <vector>
 
 #include "alfabeto.h"
 
@@ -19,7 +20,9 @@ class Gramatica {
   
   Gramatica ConvierteCNF() const;
  private:
-  void InsertProducciones(const std::multimap<std::string, std::string>& producciones) { producciones_ = producciones; }
+  int CuentaSimbolos(const std::string& cadena) const;
+  std::vector<std::string> CreaVectorProduccion(const std::string& produccion) const;
+  std::vector<std::string> CreaProductoresD(const std::string& produccion, int& contador) const;
   Alfabeto alfabeto_;
   char arranque_;
   std::set<std::string> simbolos_no_terminales_;

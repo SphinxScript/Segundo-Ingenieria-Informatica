@@ -36,3 +36,6 @@
 *.rar
 *.gz
 *.tgz
+
+# json files
+*.json
