@@ -1,3 +1,23 @@
+/**
+ * @file cliente_grammar2CNF.cc
+ * @author Ricardo David Rodríguez Pane (alu0101643137@ull.edu.es)
+ * @date 01/11/2024
+ * @brief Contiene el programa cliente que usará los métodos de la clase gramática y la práctica en sí
+ * @version 1.0
+ * 
+ * @details
+ * Universidad de La Laguna
+ * Escuela Superior de Ingeniería y Tecnología
+ * Grado en Ingeniería Informática
+ * Asignatura: Computabilidad y Algoritmia
+ * Curso: 2º
+ * Práctica 8: Gramáticas en Forma Normal de Chomsky
+ * 
+ * @note
+ * - 01/11/2024: Creación (primera versión) del código
+ */
+
+
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -7,17 +27,31 @@
 #include "gramatica.h"
 #include "alfabeto.h"
 
+/**
+ * @brief: función que comprueba si la llamada al programa es correcta
+ * @param[in] argc: el número de argumentos pasados al programa
+ * @return true si la llamada es correcta, false en caso contrario
+ */
 bool Usage(int argc) {
   return ((argc != 3 && argc != 2) || argc < 3) ? false : true;
 }
 
+/**
+ * @brief: función que comprueba si se ha pasado el argumento --help
+ * @param[in] str: el string que se va a comprobar
+ * @return true si el string es --help, false en caso contrario
+ */
 bool CompruebaHelp(const std::string& str) {
   bool help{false};
   if (str == "--help") help = true;
   return help;
 }
 
-
+/**
+ * @brief: función que comprueba si la gramática pasada como parametro en fichero es válida
+ * @param[in] input_file: el fichero de entrada
+ * @return true si la gramática es válida, false en caso contrario
+ */
 bool CompruebaGramatica(std::ifstream& input_file) {
   bool valida = true;
   std::string linea;
@@ -41,6 +75,11 @@ bool CompruebaGramatica(std::ifstream& input_file) {
   return valida;
 }
 
+/**
+ * @brief: función que crea el alfabeto de la gramática
+ * @param[in] input_file: el fichero de entrada
+ * @return el alfabeto de la gramática
+ */
 Alfabeto CreaAlfabeto(std::ifstream& input_file) {
   input_file.clear();                             // limpiamos los distintos marcadores de error del fichero
   input_file.seekg(0, std::ios::beg);             // movemos el puntero de lectura al principio del fichero
@@ -54,6 +93,13 @@ Alfabeto CreaAlfabeto(std::ifstream& input_file) {
   return alfabeto;
 }
 
+/**
+ * @brief: función que crea el conjunto de símbolos no terminales de la gramática
+ * @param[in] input_file: el fichero de entrada
+ * @param[in] simbolos_no_terminales: el conjunto de símbolos no terminales
+ * @param[in] arranque: el símbolo de arranque
+ * @return void
+ */
 void SimbolosNoTerminales(std::ifstream& input_file, std::set<std::string>& simbolos_no_terminales, char& arranque)  {
   // limpiamos los distintos marcadores de error del fichero. No hace falta mover el puntero
   // de lectura al principio del fichero ya que esta función se llama después de CreaAlfabeto() y seguimos leyendo el fichero a partir de ahí
@@ -69,6 +115,11 @@ void SimbolosNoTerminales(std::ifstream& input_file, std::set<std::string>& simb
   }
 }
 
+/**
+ * @brief: función que crea las producciones de la gramática
+ * @param[in] input_file: el fichero de entrada
+ * @return el multimap que contiene las producciones de la gramática
+ */
 std::multimap<std::string, std::string> CreaProducciones(std::ifstream& input_file) {
   // limpiamos los distintos marcadores de error del fichero. No hace falta mover el puntero de lectura al principio
   // del fichero ya que esta función se llama después de SimbolosNoTerminales() y seguimos leyendo el fichero a partir de ahí
@@ -86,6 +137,12 @@ std::multimap<std::string, std::string> CreaProducciones(std::ifstream& input_fi
   return producciones;
 }
 
+/**
+ * @brief: función principal del programa
+ * @param[in] argc: el número de argumentos pasados al programa
+ * @param[in] argv: el array de argumentos pasados al programa
+ * @return 0 si el programa se ha ejecutado correctamente, 1 en caso contrario
+ */
 int main(int argc, char* argv[]) {
   system("clear");
   if (!Usage(argc) || argc == 1) {

@@ -33,9 +33,9 @@ Alfabeto::Alfabeto(const std::string& cadena) {
 }
 
 /**
- * @brief: funcion que comprueba si un simbolo pertenece al alfabeto
+ * @brief funcion que comprueba si un simbolo pertenece al alfabeto
  * @param caracter: el simbolo que se va a comprobar
- * @return: true si el simbolo pertenece al alfabeto, false en caso contrario
+ * @return true si el simbolo pertenece al alfabeto, false en caso contrario
  */
 bool Alfabeto::CheckSymbol(const char& caracter) const {
   bool forma_parte{false};

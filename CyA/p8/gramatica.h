@@ -1,3 +1,22 @@
+/**
+ * @file gramatica.h
+ * @author Ricardo David Rodríguez Pane (alu0101643137@ull.edu.es)
+ * @date 01/11/2024
+ * @brief Contiene la definición de la clase Gramatica
+ * @version 1.0
+ * 
+ * @details
+ * Universidad de La Laguna
+ * Escuela Superior de Ingeniería y Tecnología
+ * Grado en Ingeniería Informática
+ * Asignatura: Computabilidad y Algoritmia
+ * Curso: 2º
+ * Práctica 8: Gramáticas en Forma Normal de Chomsky
+ * 
+ * @note
+ * - 01/11/2024: Creación (primera versión) del código
+ */
+
 #ifndef GRAMATICA_H
 #define GRAMATICA_H
 

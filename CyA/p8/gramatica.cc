@@ -1,8 +1,32 @@
+/**
+ * @file gramatica.cc
+ * @author Ricardo David Rodríguez Pane (alu0101643137@ull.edu.es)
+ * @date 01/11/2024
+ * @brief Contiene la implementación de los métodos de la clase Gramatica
+ * @version 1.0
+ * 
+ * @details
+ * Universidad de La Laguna
+ * Escuela Superior de Ingeniería y Tecnología
+ * Grado en Ingeniería Informática
+ * Asignatura: Computabilidad y Algoritmia
+ * Curso: 2º
+ * Práctica 8: Gramáticas en Forma Normal de Chomsky
+ * 
+ * @note
+ * - 01/11/2024: Creación (primera versión) del código
+ */
+
 #include <iostream>
 #include <vector>
 
 #include "gramatica.h"
 
+/**
+ * @brief: función que cuenta los símbolos de una producción
+ * @param[in] produccion: la producción a contar
+ * @return el número de símbolos de la producción
+ */
 int Gramatica::CuentaSimbolos(const std::string& produccion) const {
   int contador = 0;
 
@@ -21,6 +45,11 @@ int Gramatica::CuentaSimbolos(const std::string& produccion) const {
   return contador;
 }
 
+/**
+ * @brief: función que crea el vector con los símbolos de una producción, empleada para contar, en el segundo bucle, los simbolos Cx
+ * @param[in] produccion: la producción a convertir en vector
+ * @return el vector con los símbolos de la producción
+ */
 std::vector<std::string> Gramatica::CreaVectorProduccion(const std::string& produccion) const {
   std::vector<std::string> vector_produccion;
   for (int i{0}; i < static_cast<int>(produccion.size()); ++i) {
@@ -37,6 +66,12 @@ std::vector<std::string> Gramatica::CreaVectorProduccion(const std::string& prod
   return vector_produccion;
 }
 
+/**
+ * @brief: función que crea los productores Dx... de una producción en el segundo bucle del algoritmo
+ * @param[in] produccion: la producción a convertir en productores
+ * @param[in] contador: el contador que lleva la cuenta de los productores D1, D2, ... Dn
+ * @return el vector con los productores Dx...
+ */
 std::vector<std::string> Gramatica::CreaProductoresD(const std::string& produccion, int& contador) const {
   std::vector<std::string> productores_D;
   for (int i{0}; i < CuentaSimbolos(produccion) - 2; ++i) {
@@ -50,6 +85,10 @@ std::vector<std::string> Gramatica::CreaProductoresD(const std::string& producci
   return productores_D;
 }
 
+/**
+ * @brief: función que convierte una gramática en forma normal de Chomsky
+ * @return la gramática en forma normal de Chomsky
+ */
 Gramatica Gramatica::ConvierteCNF() const {
   Gramatica gramatica{*this};         // copia de la gramática original
 
