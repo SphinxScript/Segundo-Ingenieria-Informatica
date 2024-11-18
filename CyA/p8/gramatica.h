@@ -38,6 +38,7 @@ class Gramatica {
   std::multimap<std::string, std::string> GetProducciones() const { return producciones_; }
   
   Gramatica ConvierteCNF() const;
+  std::vector<std::string> NoTerminalesAlcanzablesDesdeS() const;
  private:
   int CuentaSimbolos(const std::string& cadena) const;
   std::vector<std::string> CreaVectorProduccion(const std::string& produccion) const;

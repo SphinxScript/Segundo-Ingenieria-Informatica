@@ -1,0 +1,20 @@
+Alfabeto: {a, b, c}
+
+Simbolos no terminales: Ca Cb D1 D2 D3 D4 S X Y 
+Arranque: S
+
+Producciones: 
+A -> DA
+Ca -> a
+Cb -> b
+D -> BB
+D1 -> XD2
+D2 -> CbX
+D3 -> CbX
+D4 -> XCb
+F -> UV
+S -> CaD1
+S -> CaD3
+S -> CaD4
+S -> CaCb
+X -> AB

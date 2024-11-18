@@ -177,6 +177,15 @@ int main(int argc, char* argv[]) {
     Gramatica gramatica_cnf = gramatica.ConvierteCNF(); // convertimos la gramatica a CNF
     std::ofstream output_file(argv[2]); // creamos el fichero de salida
     output_file << gramatica_cnf; // escribimos la gramatica en el fichero de salida
+
+    // A PARTIR DE AQUÍ SE ENCUENTRA LA MODIFICACIÓN DE CLASE.
+
+    std::vector<std::string> simbolos_alcanzables{gramatica.NoTerminalesAlcanzablesDesdeS()};
+    std::cout << "Alcanzables desde S:" << std::endl << std::endl;
+    for (std::string& alcanzable : simbolos_alcanzables) {
+      std::cout << alcanzable << std::endl;
+    }
+    std::cout << std::endl;
   }
   return 0;
 }

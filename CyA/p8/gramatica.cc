@@ -19,6 +19,7 @@
 
 #include <iostream>
 #include <vector>
+#include <stack>
 
 #include "gramatica.h"
 
@@ -188,4 +189,61 @@ std::ostream& operator<<(std::ostream& os, const Gramatica& gramatica) {
     os << produccion.first << " -> " << produccion.second << std::endl;
   }
   return os;
+}
+
+
+// MODIFICACIÓN:
+
+std::vector<std::string> Gramatica::NoTerminalesAlcanzablesDesdeS() const {
+  // copia de la gramatica
+  Gramatica gramatica{*this};
+  // creo un multimap de las producciones
+  std::multimap<std::string, std::string> producciones{gramatica.GetProducciones()};
+
+  // aquí creo el vector de strings con el conjunto de símbolos alcanzables, y meto el simbolo S
+  std::vector<std::string> simbolos_alcanzables;
+  simbolos_alcanzables.push_back(std::string(1, gramatica.GetArranque()));
+
+  // pila con la que haré la búsqueda
+  std::stack<std::string> pila_a_analizar;
+
+  // set de simbolos no terminales
+  std::set<std::string> simbolos_no_terminales = GetSimbolosNoTerminales();
+
+  // recorremos todo el multimap a fin de introducir en la pila los simbolos no terminales que directamente se alcanzan desde S
+  // también lo introducimos en el vector de no terminales.
+  for (std::pair<const std::string, std::string>& produccion : producciones) {
+    if (produccion.first == "S") {
+      std::vector<std::string> producido = CreaVectorProduccion(produccion.second);
+      for (const std::string& simbolo : producido) {
+        if (simbolos_no_terminales.find(simbolo) != simbolos_no_terminales.end()) {
+          pila_a_analizar.push(simbolo);
+          simbolos_alcanzables.push_back(simbolo);
+        }
+      }
+    }
+  }
+
+  while (!pila_a_analizar.empty()) {
+    std::string top = pila_a_analizar.top();
+    pila_a_analizar.pop();
+    std::cout << top << std::endl;
+  }
+
+  std::multimap<std::string, std::string> producciones_2{gramatica.GetProducciones()};
+  while (!pila_a_analizar.empty()) {
+    std::string simbolo_no_terminal{pila_a_analizar.top()};
+    pila_a_analizar.pop();
+    for (std::pair<const std::string, std::string>& produccion : producciones_2) {
+      std::vector<std::string> producido = CreaVectorProduccion(produccion.second);
+      for (const std::string& simbolo : producido) {
+        if (simbolos_no_terminales.find(simbolo) != simbolos_no_terminales.end()) {
+          pila_a_analizar.push(simbolo);
+          std::cout << "-";
+          simbolos_alcanzables.push_back(simbolo);
+        }
+      }
+    }
+  }
+  return simbolos_alcanzables;
 }
