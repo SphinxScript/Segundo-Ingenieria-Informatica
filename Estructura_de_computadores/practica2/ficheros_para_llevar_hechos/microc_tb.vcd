@@ -1,0 +1,172 @@
+$date
+	Tue Nov 19 22:05:51 2024
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module microc_tb $end
+$var wire 1 ! z $end
+$var wire 6 " Opcode [5:0] $end
+$var reg 3 # Op [2:0] $end
+$var reg 1 $ clk $end
+$var reg 1 % reset $end
+$var reg 1 & s_inc $end
+$var reg 1 ' s_inm $end
+$var reg 1 ( we3 $end
+$var reg 1 ) wez $end
+$scope module uut $end
+$var wire 3 * Op [2:0] $end
+$var wire 1 $ clk $end
+$var wire 1 % reset $end
+$var wire 1 & s_inc $end
+$var wire 1 ' s_inm $end
+$var wire 1 ( we3 $end
+$var wire 1 ) wez $end
+$var wire 1 + zeroALU $end
+$var wire 1 ! z $end
+$var wire 10 , salidaSUM [9:0] $end
+$var wire 10 - salidaPC [9:0] $end
+$var wire 10 . salidaMUX [9:0] $end
+$var wire 16 / salidaMEM [15:0] $end
+$var wire 8 0 salidaALU [7:0] $end
+$var wire 8 1 WD3 [7:0] $end
+$var wire 8 2 RD2 [7:0] $end
+$var wire 8 3 RD1 [7:0] $end
+$var wire 6 4 Opcode [5:0] $end
+$scope module ALU $end
+$var wire 3 5 Op [2:0] $end
+$var wire 8 6 B [7:0] $end
+$var wire 8 7 A [7:0] $end
+$var reg 8 8 S [7:0] $end
+$var reg 1 + zero $end
+$upscope $end
+$scope module PC $end
+$var wire 1 $ clk $end
+$var wire 1 % reset $end
+$var wire 10 9 D [9:0] $end
+$var parameter 32 : WIDTH $end
+$var reg 10 ; Q [9:0] $end
+$upscope $end
+$scope module flag $end
+$var wire 1 ) carga $end
+$var wire 1 $ clk $end
+$var wire 1 + d $end
+$var wire 1 % reset $end
+$var reg 1 ! q $end
+$upscope $end
+$scope module memoria $end
+$var wire 10 < Address [9:0] $end
+$var wire 16 = Data [15:0] $end
+$var wire 1 $ clk $end
+$upscope $end
+$scope module multiplexor $end
+$var wire 10 > D0 [9:0] $end
+$var wire 1 & s $end
+$var wire 10 ? Y [9:0] $end
+$var wire 10 @ D1 [9:0] $end
+$var parameter 32 A WIDTH $end
+$upscope $end
+$scope module multiplexor8 $end
+$var wire 8 B D0 [7:0] $end
+$var wire 8 C D1 [7:0] $end
+$var wire 1 ' s $end
+$var wire 8 D Y [7:0] $end
+$var parameter 32 E WIDTH $end
+$upscope $end
+$scope module registros $end
+$var wire 4 F RA1 [3:0] $end
+$var wire 4 G RA2 [3:0] $end
+$var wire 4 H WA3 [3:0] $end
+$var wire 8 I WD3 [7:0] $end
+$var wire 1 $ clk $end
+$var wire 1 ( we3 $end
+$var wire 8 J RD2 [7:0] $end
+$var wire 8 K RD1 [7:0] $end
+$upscope $end
+$scope module sumador $end
+$var wire 10 L A [9:0] $end
+$var wire 10 M B [9:0] $end
+$var wire 10 N Y [9:0] $end
+$upscope $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+b1000 E
+b1010 A
+b1010 :
+$end
+#0
+$dumpvars
+b1 N
+b0 M
+b1 L
+b0 K
+b0 J
+b0 I
+b101 H
+b0 G
+b0 F
+b0 D
+b0 C
+b0 B
+b1 @
+b101 ?
+b101 >
+b100000000000101 =
+b0 <
+b0 ;
+b101 9
+b0 8
+b0 7
+b0 6
+b0 5
+b10000 4
+b0 3
+b0 2
+b0 1
+b0 0
+b100000000000101 /
+b101 .
+b0 -
+b1 ,
+1+
+b0 *
+0)
+0(
+0'
+0&
+1%
+0$
+b0 #
+b10000 "
+0!
+$end
+#10000
+1$
+#25000
+b1 .
+b1 9
+b1 ?
+1&
+#35000
+1(
+1'
+#75000
+1)
+0'
+#95000
+b101 .
+b101 9
+b101 ?
+0&
+#105000
+b1 .
+b1 9
+b1 ?
+1&
+#405000
