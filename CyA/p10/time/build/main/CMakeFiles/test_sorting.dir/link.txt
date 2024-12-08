@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/test_sorting.dir/src/main.cpp.o -o ../bin/test_sorting  -Wl,-rpath,/home/usuario/ULL/Segundo-Ingenieria-Informatica/CyA/p10/time/build/test:/home/usuario/ULL/Segundo-Ingenieria-Informatica/CyA/p10/time/build/sorting ../test/libtest_bench.so ../sorting/libsorting_library.so 

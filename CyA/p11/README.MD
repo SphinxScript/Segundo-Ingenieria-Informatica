@@ -1,0 +1,1 @@
+Compile simplemente usando el makefile proporcionado, con el comando make

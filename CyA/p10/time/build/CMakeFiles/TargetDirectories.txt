@@ -1,0 +1,11 @@
+/home/usuario/ULL/Segundo-Ingenieria-Informatica/CyA/p10/time/build/CMakeFiles/edit_cache.dir
+/home/usuario/ULL/Segundo-Ingenieria-Informatica/CyA/p10/time/build/CMakeFiles/rebuild_cache.dir
+/home/usuario/ULL/Segundo-Ingenieria-Informatica/CyA/p10/time/build/sorting/CMakeFiles/sorting_library.dir
+/home/usuario/ULL/Segundo-Ingenieria-Informatica/CyA/p10/time/build/sorting/CMakeFiles/edit_cache.dir
+/home/usuario/ULL/Segundo-Ingenieria-Informatica/CyA/p10/time/build/sorting/CMakeFiles/rebuild_cache.dir
+/home/usuario/ULL/Segundo-Ingenieria-Informatica/CyA/p10/time/build/test/CMakeFiles/test_bench.dir
+/home/usuario/ULL/Segundo-Ingenieria-Informatica/CyA/p10/time/build/test/CMakeFiles/edit_cache.dir
+/home/usuario/ULL/Segundo-Ingenieria-Informatica/CyA/p10/time/build/test/CMakeFiles/rebuild_cache.dir
+/home/usuario/ULL/Segundo-Ingenieria-Informatica/CyA/p10/time/build/main/CMakeFiles/test_sorting.dir
+/home/usuario/ULL/Segundo-Ingenieria-Informatica/CyA/p10/time/build/main/CMakeFiles/edit_cache.dir
+/home/usuario/ULL/Segundo-Ingenieria-Informatica/CyA/p10/time/build/main/CMakeFiles/rebuild_cache.dir
