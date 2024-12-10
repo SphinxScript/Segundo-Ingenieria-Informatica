@@ -135,3 +135,46 @@ void PointSet::WriteTree(std::ostream& os) const {
   os << std::endl;
   os << "Coste total: " << std::setprecision(kMaxPrecision) << ComputeCost() << std::endl;
 }
+
+void PointSet::PrintDot(std::ostream& os) const {
+  os << "graph {" << std::endl;
+  // creo un set de puntos para no repetirlos y tener todos
+  std::set<cya::Point> printed_points;
+  for (const auto& arc : emst_) {
+    printed_points.insert(arc.first);
+    printed_points.insert(arc.second);
+  }
+  int contador{0};
+  // creo un vector de puntos para poder acceder a ellos por índice
+  std::vector<cya::Point> printed_points_vector;
+  for (const auto& point : printed_points) {
+    os << " " << contador << " [pos = \" " << point << "!\"]" << std::endl;
+    printed_points_vector.push_back(point);
+    ++contador;
+  }
+  std::cout << std::endl;
+  contador = 0;
+  // comienzo a iterar, para saber qué punto va a qué punto e imprimirlo acorde al formato de salida esperado
+  for (int i{0}; i < static_cast<int>(emst_.size()); ++i) {     // recorremos todas las aristas del árbol
+    // creamos dos puntos para poder compararlos con los puntos del vector
+    cya::Point point = emst_[static_cast<size_t>(i)].first;
+    cya::Point point2 = emst_[static_cast<size_t>(i)].second;
+    // recorremos todo el vector de puntos
+    for (int j{0}; j < static_cast<int>(printed_points_vector.size()); ++j) {
+      // si el punto 1 es igual al punto del vector, guardamos el índice en contador y seguimos buscando el punto de destino (punto2)
+      if (point == printed_points_vector[static_cast<size_t>(j)]) {
+        contador = j;
+        // recorremos de nuevo todo el vector de puntos
+        for (int k{0}; k < static_cast<int>(printed_points_vector.size()); ++k) {
+          // cuando el punto2 es igual al punto del vector, imprimimos la arista con el formato: x -- y
+          // siendo x el indice del punto origen, e y el indice del punto destino, correspondiendose en este bucle
+          // a las variables contador y k del bucle actual
+          if (point2 == printed_points_vector[static_cast<size_t>(k)]) {
+            os << " " << contador << " -- " << k << std::endl;
+          }
+        }
+      }
+    }
+  }
+  os << "}" << std::endl;
+}

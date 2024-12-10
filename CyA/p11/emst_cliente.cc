@@ -37,6 +37,7 @@ bool usage(const int& argc) {
 }
 
 int main(int argc, char* argv[]) {
+  system("clear");
   if (usage(argc)) return 1;
   std::string filename = argv[1];
   std::ifstream file(filename);
@@ -56,5 +57,7 @@ int main(int argc, char* argv[]) {
   PointSet objeto_emst(points);
   objeto_emst.ComputeEMST();
   objeto_emst.WriteTree(std::cout);
+  std::cout << std::endl << std::endl;
+  objeto_emst.PrintDot(std::cout);
   return EXIT_SUCCESS;
 }

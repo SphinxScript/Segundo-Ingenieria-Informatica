@@ -41,6 +41,8 @@ class PointSet : public cya::PointVector {
   inline const cya::PointVector& GetPoints() const { return *this; }
   inline double GetCost() const { return ComputeCost(); }
 
+  void PrintDot(std::ostream& os) const;
+
  private:
   cya::Tree emst_;
   void ComputeArcVector(cya::ArcVector& arc_vector) const;    // implementado
