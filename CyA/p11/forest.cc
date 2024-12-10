@@ -137,7 +137,7 @@ void PointSet::WriteTree(std::ostream& os) const {
 }
 
 void PointSet::PrintDot(std::ostream& os) const {
-  os << "graph {" << std::endl;
+  os << "graph {" << std::endl << std::endl;
   // creo un set de puntos para no repetirlos y tener todos
   std::set<cya::Point> printed_points;
   for (const auto& arc : emst_) {
@@ -152,7 +152,7 @@ void PointSet::PrintDot(std::ostream& os) const {
     printed_points_vector.push_back(point);
     ++contador;
   }
-  std::cout << std::endl;
+  os << std::endl;
   contador = 0;
   // comienzo a iterar, para saber qué punto va a qué punto e imprimirlo acorde al formato de salida esperado
   for (int i{0}; i < static_cast<int>(emst_.size()); ++i) {     // recorremos todas las aristas del árbol

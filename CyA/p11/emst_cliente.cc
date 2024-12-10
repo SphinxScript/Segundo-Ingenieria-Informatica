@@ -28,9 +28,9 @@
 // pondré el código de usage aquí porque es la única función que se usará como apoyo al main
 bool usage(const int& argc) {
   bool usage = false;
-  if (argc != 2) {
+  if (argc != 2 && argc != 3) {
     std::cerr << "Error: Número de argumentos incorrecto." << std::endl;
-    std::cerr << "Uso: ./emst_cliente <fichero_entrada>" << std::endl;
+    std::cerr << "Uso: ./emst_cliente <fichero_entrada> [-d]" << std::endl;
     usage = true;
   }
   return usage;
@@ -57,7 +57,17 @@ int main(int argc, char* argv[]) {
   PointSet objeto_emst(points);
   objeto_emst.ComputeEMST();
   objeto_emst.WriteTree(std::cout);
-  std::cout << std::endl << std::endl;
-  objeto_emst.PrintDot(std::cout);
+  if (argc == 3) {
+    std::string option = argv[2];
+    if (option == "-d") {
+      std::ofstream output_file("archivo.dot");
+      objeto_emst.PrintDot(output_file);
+    }
+    else {
+      std::cerr << "Error: Opción incorrecta." << std::endl;
+      std::cerr << "Uso: ./tree_emst.out <fichero_entrada> [-d]" << std::endl;
+      return EXIT_FAILURE;
+    }
+  }
   return EXIT_SUCCESS;
 }
