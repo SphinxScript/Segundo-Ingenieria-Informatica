@@ -178,3 +178,72 @@ void PointSet::PrintDot(std::ostream& os) const {
   }
   os << "}" << std::endl;
 }
+
+
+std::vector<cya::Tree> PointSet::ComputeMultistart(const std::vector<cya::Point>& puntos) {
+  std::vector<int> indices_aleatorios;
+  for (int i{0}; i < 6; ++i) {
+    int numero = rand() % static_cast<int>(puntos.size());
+    indices_aleatorios.push_back(numero);
+  }
+  std::vector<cya::Arc> arcos;
+  for (int i{0}; i < static_cast<int>(indices_aleatorios.size()); i += 2) {
+    cya::Arc pair = std::make_pair(puntos[static_cast<size_t>(i)], puntos[static_cast<size_t>(i) + 1]);
+    arcos.push_back(pair);  
+  }
+  // para comprobar si esta correcta la creación de las 3 aristas aleatorias
+  // for (const auto& arc : arcos) {
+  //   std::cout << arc.first << " --> " << arc.second << std::endl;
+  // }
+
+  cya::ArcVector vector_arcos_aleatorios;
+  for (int i{0}; i < static_cast<int>(arcos.size()); ++i) {
+    cya::Arc arco = arcos[i];
+    double peso = EuclideanDistance(arco);
+    cya::WeightedArc arco_ponderado;
+    arco_ponderado = std::make_pair(peso, arco);
+    vector_arcos_aleatorios.push_back(arco_ponderado);
+  }
+
+  // hasta este punto he logrado crear los 3 arcos aleatorios y sus peso, los weightedArc.
+
+  // creo un vector
+  std::vector<cya::Tree> vector_de_arboles;
+
+  for (int i{0}; i < vector_arcos_aleatorios.size(); ++i) {
+    cya::Tree sub_arbol = ReturnEMST(vector_arcos_aleatorios[i]);
+    vector_de_arboles.push_back(sub_arbol);
+  }
+  // devuelvo el conjunto de arboles hallado
+  return vector_de_arboles;
+}
+
+// esta función halla el arbol emst a partir de la arista pasada
+cya::Tree PointSet::ReturnEMST(const cya::WeightedArc& arco_inicial) {    
+  cya::ArcVector arc_vector;
+  ComputeArcVector(arc_vector);
+
+  arc_vector[0] = arco_inicial;
+
+  Forest subtrees;
+
+  // Inicializa un subárbol para cada punto.
+  for (const cya::Point& point : *this) {
+    emst::SubTree subtree;
+    subtree.AddPoint(point);
+
+    subtrees.push_back(subtree);
+  }
+
+  // Construye el EMST usando los arcos ponderados.
+  for (const cya::WeightedArc& weighted_arc : arc_vector) {
+    int subtree_indice_i, subtree_indice_j;
+    FindIncidentSubtrees(subtrees, weighted_arc.second, subtree_indice_i, subtree_indice_j);
+
+    if (subtree_indice_i != subtree_indice_j) {
+      MergeSubtrees(subtrees, weighted_arc.second, subtree_indice_i, subtree_indice_j);
+    }
+  }
+
+  emst_ = subtrees[0].GetArcs();
+}

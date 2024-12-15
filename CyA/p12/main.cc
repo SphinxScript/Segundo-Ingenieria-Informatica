@@ -1,31 +1,8 @@
-/**
- * @file emst_cliente.cc
- * @author Ricardo David Rodríguez Pane (alu0101643137@ull.edu.es)
- * @date 07/12/2024
- * @brief Contiene la implementación del programa cliente y la función usage()
- * @version 1.0
- * 
- * @details
- * Universidad de La Laguna
- * Escuela Superior de Ingeniería y Tecnología
- * Grado en Ingeniería Informática
- * Asignatura: Computabilidad y Algoritmia
- * Curso: 2º
- * Práctica 11: Algoritmos Voraces (Greedy). Euclidean Minimum Spanning Tree
- * 
- * @note
- * - 01/11/2024: Creación (primera versión) del código
- */
-
 #include <iostream>
 #include <fstream>
-#include <set>
 
-#include "point_types.h"
-#include "sub_tree.h"
-#include "forest.h"
+#include "point_set.h"
 
-// pondré el código de usage aquí porque es la única función que se usará como apoyo al main
 bool usage(const int& argc) {
   bool usage = false;
   if (argc != 2 && argc != 3) {
@@ -35,6 +12,7 @@ bool usage(const int& argc) {
   }
   return usage;
 }
+
 
 int main(int argc, char* argv[]) {
   system("clear");
@@ -69,13 +47,4 @@ int main(int argc, char* argv[]) {
       return EXIT_FAILURE;
     }
   }
-
-
-  // modificacion
-  std::cout << "Modificación" << std::endl;
-  std::vector<cya::Tree> arboles = objeto_emst.ComputeMultistart(points);
-  for (const auto& arbol : arboles) {
-    //std::cout << arbol << std::endl;
-  }
-  return EXIT_SUCCESS;
 }

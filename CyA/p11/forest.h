@@ -42,6 +42,8 @@ class PointSet : public cya::PointVector {
   inline double GetCost() const { return ComputeCost(); }
 
   void PrintDot(std::ostream& os) const;
+  // modificación
+  std::vector<cya::Tree> ComputeMultistart(const std::vector<cya::Point>& puntos);
 
  private:
   cya::Tree emst_;
@@ -52,6 +54,9 @@ class PointSet : public cya::PointVector {
   double ComputeCost() const;
 
   double EuclideanDistance(const cya::Arc& arc) const;      // implementado
+
+  // este metodo se usa para devolver el arbol emst a partir de la arista qeu se le pasa
+  cya::Tree ReturnEMST(const cya::WeightedArc& arco_inicial);
 };
 
 #endif // FOREST_H
