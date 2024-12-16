@@ -72,10 +72,10 @@ int main(int argc, char* argv[]) {
 
 
   // modificacion
-  std::cout << "Modificación" << std::endl;
-  std::vector<cya::Tree> arboles = objeto_emst.ComputeMultistart(points);
-  for (const auto& arbol : arboles) {
-    //std::cout << arbol << std::endl;
-  }
+  // std::cout << "Modificación" << std::endl;
+  // std::vector<cya::Tree> arboles = objeto_emst.ComputeMultistart(points);
+  // for (const auto& arbol : arboles) {
+  //   //std::cout << arbol << std::endl;
+  // }
   return EXIT_SUCCESS;
 }
