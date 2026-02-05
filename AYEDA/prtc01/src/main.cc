@@ -2,6 +2,8 @@
 
 #include "ant.h"
 #include "funciones.h"
+#include "tape.h"
+#include "simulator.h"
 
 int main(int argc, char* argv[]) {
   system("clear");
@@ -23,6 +25,18 @@ int main(int argc, char* argv[]) {
       return 0;
     }
   }
-  std::cout << "debug: nombre_fichero  = " << nombre_fichero << "\n";
+  std::string fichero_entrada{argv[1]};
+  std::cout << "debug: nombre_entrada = " << fichero_entrada << "\n";
+  std::cout << "debug: nombre_salida  = " << nombre_fichero << "\n";
+  Ant hormiga{};
+  Tape rejilla{};
+  bool check_build;
+  Simulator simulador(fichero_entrada, hormiga, rejilla, check_build);
+
+  if (!check_build) {
+    std::cerr << "Error al crear los objetos. finalizando" << std::endl;
+    return 1;
+  }
+
   return 0;
 }

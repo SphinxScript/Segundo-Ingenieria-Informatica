@@ -1,9 +1,25 @@
 #pragma once
 
+#include <iostream>
+
+enum class Direccion {
+  left,
+  right,
+  up,
+  down
+};
+
 class Ant {
  public:
   // Ant();
-  // Ant();
-  // void move();
+  Ant() {};
+  void Move();
+  void SetPlace(int, int, int);
+  friend std::ostream& operator<<(std::ostream& os, const Ant& ant);
  private:
+  // posicion de la hormiga
+  int x_;
+  int y_;
+  // dirección de la hormiga, usamos la enumeración para representar las direcciones
+  Direccion direction_;
 };

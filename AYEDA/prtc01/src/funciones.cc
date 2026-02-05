@@ -1,5 +1,3 @@
-
-
 #include "funciones.h"
 #include <string>
 
