@@ -37,6 +37,6 @@ int main(int argc, char* argv[]) {
     std::cerr << "Error al crear los objetos. finalizando" << std::endl;
     return 1;
   }
-
+  std::cout << rejilla << std::endl;
   return 0;
 }

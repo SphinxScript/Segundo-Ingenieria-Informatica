@@ -15,6 +15,7 @@ class Ant {
   Ant() {};
   void Move();
   void SetPlace(int, int, int);
+  std::pair<int,int> GetPosition() const { return std::pair<int,int>(x_, y_); }
   friend std::ostream& operator<<(std::ostream& os, const Ant& ant);
  private:
   // posicion de la hormiga
