@@ -19,11 +19,15 @@ Simulator::Simulator(const std::string& fichero_entrada, bool& control) {
   // capturamos el tamaño de la rejilla
   int sizeX, sizeY;
   flujo_entrada >> sizeX >> sizeY;
-  std::cout << "Debug: nº filas columnas" << sizeX << " " << sizeY <<  std::endl;
+  // std::cout << "Debug: nº filas columnas" << sizeX << " " << sizeY <<  std::endl;
   int positionX, positionY, orientacion;
   flujo_entrada >> positionX >> positionY >> orientacion;
-  std::cout << "debug: posicion y orientacion: " << positionX << " " << positionY << " " << orientacion << std::endl;
-
+  // std::cout << "debug: posicion y orientacion: " << positionX << " " << positionY << " " << orientacion << std::endl;
+  if (positionX < 0 || positionX >= sizeX || positionY < 0 || positionY >= sizeY) {
+    std::cerr << "Error: La posición inicial de la hormiga no es válida.\n";
+    control = false;
+    return;
+  }
   rejilla_.SetSize(sizeX, sizeY);
   hormiga_.SetPlace(positionX, positionY, orientacion);
   std::string linea;
@@ -45,6 +49,26 @@ Simulator::Simulator(const std::string& fichero_entrada, bool& control) {
 }
 
 void Simulator::Simulate() {
-  hormiga_.Move(rejilla_.GetMalla()[hormiga_.GetPosition().second][hormiga_.GetPosition().first], rejilla_);
+  std::cout << "Presione enter para avanzar, cualquier otra tecla + enter para finalizar";  
+  std::string input;
+  bool paso_valido{true};
+  int contador{0};
+  while(true && paso_valido) {
+    getline(std::cin, input);
+    if (!input.empty()) break;
+    else {
+      paso_valido = Step(contador);
+    }
+  }
+  std::cout << "finalizando simulación..." << std::endl;
+}
+
+bool Simulator::Step(int& contador) {
+  bool valido = hormiga_.Move(rejilla_.GetMalla()[hormiga_.GetPosition().first][hormiga_.GetPosition().second], rejilla_);
+  system("clear");
   std::cout << rejilla_;
+  std::cout << std::endl;
+  std::cout << "Paso " << contador << std::endl;
+  ++contador;
+  return valido;
 }

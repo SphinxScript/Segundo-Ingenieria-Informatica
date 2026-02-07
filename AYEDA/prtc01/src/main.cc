@@ -16,18 +16,10 @@ int main(int argc, char* argv[]) {
     PrintUsage();
     return 0;
   }
-  bool guardar_fichero = false;
-  std::string nombre_fichero;
-  ManageSave(argc, argv, guardar_fichero);
-  if (guardar_fichero) {
-    if (!ManageOutFile(argc, argv, nombre_fichero)) {
-      std::cerr << "Error: No se ha especificado un nombre de fichero válido para guardar la salida.\n";
-      return 0;
-    }
-  }
+
   std::string fichero_entrada{argv[1]};
-  std::cout << "debug: nombre_entrada = " << fichero_entrada << "\n";
-  std::cout << "debug: nombre_salida  = " << nombre_fichero << "\n";
+  // std::cout << "debug: nombre_entrada = " << fichero_entrada << "\n";
+  // std::cout << "debug: nombre_salida  = " << nombre_fichero << "\n";
   bool check_build;
   Simulator simulador(fichero_entrada, check_build);
 
@@ -37,5 +29,14 @@ int main(int argc, char* argv[]) {
   }
   std::cout << simulador.GetTape() << std::endl;
   simulador.Simulate();
+  std::cout << "Desea guardar el resultado en un fichero? (s/n): ";
+  char respuesta;
+  std::cin >> respuesta;
+  std::string fichero_salida;
+  if (respuesta == 's' || respuesta == 'S') {
+    std::cout << "Introduzca nombre de fichero: ";
+    std::cin >> fichero_salida;
+    HandleSave(fichero_salida, simulador);
+  }
   return 0;
 }

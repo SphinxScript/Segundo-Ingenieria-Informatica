@@ -17,7 +17,7 @@ std::ostream& operator<<(std::ostream& os, const Ant& ant) {
   return os;
 }
 
-void Ant::Move(bool color, Tape& cinta) {
+bool Ant::Move(bool color, Tape& cinta) {
   // Si está sobre una celda blanca, cambia el color a negra, gira noventa grados a la izquierda
   // y avanza una celda.
   // Si está sobre una celda negra, cambia el color a blanca, gira noventa grados a la derecha
@@ -62,20 +62,27 @@ void Ant::Move(bool color, Tape& cinta) {
   // finalmente avanzamos
   switch(direction_) {
     case Direccion::up:
-      std::cout << "debug: moviendo hacia arriba" << std::endl;
+      // std::cout << "debug: moviendo hacia arriba" << std::endl;
       --x_;
       break;
     case Direccion::down:
-      std::cout << "debug: moviendo hacia abajo" << std::endl;
+      // std::cout << "debug: moviendo hacia abajo" << std::endl;
       ++x_;
       break;
     case Direccion::left:
-      std::cout << "debug: moviendo hacia la izquierda" << std::endl;
+      // std::cout << "debug: moviendo hacia la izquierda" << std::endl;
       --y_;
       break;
     case Direccion::right:
-      std::cout << "debug: moviendo hacia la derecha" << std::endl;
+      // std::cout << "debug: moviendo hacia la derecha" << std::endl;
       ++y_;
       break;
   }
+  // comprobamos que la nueva posicion es valida, es decir, que no se sale de la rejilla
+  bool valido = true;
+  std::pair<int,int> size = cinta.GetSize();
+  if (x_ < 0 || x_ >= size.first || y_ < 0 || y_ >= size.second) {
+    valido = false;
+  }
+  return valido;
 }

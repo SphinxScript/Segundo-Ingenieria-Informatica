@@ -3,8 +3,8 @@
 #include <fstream>
 #include "ant.h"
 #include "tape.h"
+#include "simulator.h"
 
 bool ManageHelp(int, char* const*);
-void ManageSave(int, char* const*, bool&);
-bool ManageOutFile(int, char* const*, std::string&);
+void HandleSave(const std::string&, const Simulator&);
 void PrintUsage();

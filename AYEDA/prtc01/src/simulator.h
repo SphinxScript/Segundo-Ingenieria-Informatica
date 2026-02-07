@@ -25,5 +25,5 @@ class Simulator  {
   // Esta función se ejecuta cuando el usuario presiona una tecla
   // y se encarga de mover la hormiga, cambiar el color de la celda y actualizar la rejilla.
   // devuelve el control a Simulate() al terminar, se ejecuta en un bucle
-  bool Step();
+  bool Step(int&);
 };
