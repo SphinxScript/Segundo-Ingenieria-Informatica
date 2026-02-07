@@ -8,7 +8,7 @@
 
 
 
-Simulator::Simulator(const std::string& fichero_entrada, Ant& hormiga, Tape& rejilla, bool& control) {
+Simulator::Simulator(const std::string& fichero_entrada, bool& control) {
 
   std::ifstream flujo_entrada{fichero_entrada};
   if (!flujo_entrada.is_open()) {
@@ -24,8 +24,8 @@ Simulator::Simulator(const std::string& fichero_entrada, Ant& hormiga, Tape& rej
   flujo_entrada >> positionX >> positionY >> orientacion;
   std::cout << "debug: posicion y orientacion: " << positionX << " " << positionY << " " << orientacion << std::endl;
 
-  rejilla.SetSize(sizeX, sizeY);
-  hormiga.SetPlace(positionX, positionY, orientacion);
+  rejilla_.SetSize(sizeX, sizeY);
+  hormiga_.SetPlace(positionX, positionY, orientacion);
   std::string linea;
   std::getline(flujo_entrada, linea);
 
@@ -36,10 +36,15 @@ Simulator::Simulator(const std::string& fichero_entrada, Ant& hormiga, Tape& rej
     std::stringstream flujo_linea{linea};
     flujo_linea >> x >> y;
     
-    rejilla.FlipColor(x, y);
+    rejilla_.FlipColor(x, y);
     std::cout << x << " " << y << std::endl;
   }
-  // ahora asignamos el puntero de la hormiga a la cinta.
-  rejilla.SetAnt(&hormiga);
+  // ahora asignamos el puntero de la hormiga al objeto cinta.
+  rejilla_.SetAnt(&hormiga_);
   control = true;
+}
+
+void Simulator::Simulate() {
+  hormiga_.Move(rejilla_.GetMalla()[hormiga_.GetPosition().second][hormiga_.GetPosition().first], rejilla_);
+  std::cout << rejilla_;
 }

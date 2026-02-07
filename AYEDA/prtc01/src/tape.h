@@ -4,6 +4,8 @@
 #include <vector>
 #include <iostream>
 
+class Ant;  // declaración adelantada
+
 class Tape {
  public:
   Tape() {};

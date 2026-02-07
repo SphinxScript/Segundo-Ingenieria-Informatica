@@ -12,7 +12,9 @@ std::ostream& operator<<(std::ostream& os, const Tape& tape) {
   for (int i{0}; i < tape_size.first; ++i) {
     for (int j{0}; j < tape_size.second; ++j) {
       if (i == antx && j == anty) {
-        os << *tape.ant_ << " ";
+        if (!(tape.ant_ == nullptr)) {
+          os << *tape.ant_ << " ";
+        }
       }
       else {
         if (malla[i][j]) {    // si vale 1 (es true)

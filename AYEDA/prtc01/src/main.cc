@@ -28,15 +28,14 @@ int main(int argc, char* argv[]) {
   std::string fichero_entrada{argv[1]};
   std::cout << "debug: nombre_entrada = " << fichero_entrada << "\n";
   std::cout << "debug: nombre_salida  = " << nombre_fichero << "\n";
-  Ant hormiga{};
-  Tape rejilla{};
   bool check_build;
-  Simulator simulador(fichero_entrada, hormiga, rejilla, check_build);
+  Simulator simulador(fichero_entrada, check_build);
 
   if (!check_build) {
     std::cerr << "Error al crear los objetos. finalizando" << std::endl;
     return 1;
   }
-  std::cout << rejilla << std::endl;
+  std::cout << simulador.GetTape() << std::endl;
+  simulador.Simulate();
   return 0;
 }
