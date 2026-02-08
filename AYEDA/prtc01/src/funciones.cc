@@ -2,14 +2,21 @@
 #include <string>
 
 
-
+/**
+ * @brief Imprime el mensaje de uso del programa.
+ */
 void PrintUsage() {
   std::cout << "Usage: ./langton.out <fichero_entrada> [OPTIONS]\n"
             << "Options:\n"
             << "  --h, --help          Muestra este mensaje y termina\n";
 }
 
-// comprueba si se ha pasado el argumento de ayuda y devuelve true si es así, false en caso contrario
+/**
+ * @brief Comprueba si se ha pasado el argumento de ayuda en la línea de comandos.
+ * @param argc Número de argumentos de la línea de comandos.
+ * @param argv Vector de argumentos de la línea de comandos.
+ * @return true si se ha pasado el argumento de ayuda, false en caso contrario.
+ */
 bool ManageHelp(int argc, char* const argv[]) {
   bool help = false;
   for (int i{1}; i < argc; ++i) {
@@ -21,6 +28,11 @@ bool ManageHelp(int argc, char* const argv[]) {
   return help;
 }
 
+/**
+ * @brief Guarda el estado final de la simulación en un fichero de salida.
+ * @param fichero_salida Nombre del fichero donde se guardará el resultado.
+ * @param simulador Objeto Simulator que contiene el estado final de la simulación.
+ */
 void HandleSave(const std::string& fichero_salida, const Simulator& simulador) {
   std::ofstream flujo_salida{fichero_salida};
   flujo_salida << simulador.GetTape().GetSize().first << " " << simulador.GetTape().GetSize().second << std::endl;

@@ -3,6 +3,9 @@
 #include <iostream>
 #include "tape.h"
 
+/**
+ * @brief enumeración para representar las direcciones de la hormiga.
+ */
 enum class Direccion {
   left,
   right,
@@ -12,6 +15,9 @@ enum class Direccion {
 
 class Tape;  // declaracion adelantada
 
+/**
+ * @brief Clase que representa a la hormiga en el juego de la hormiga de Langton. Contiene información sobre su posición, orientación y métodos para moverla.
+ */
 class Ant {
  public:
   Ant() = default;

@@ -1,12 +1,24 @@
 #include "ant.h"
 #include "tape.h"
 
+/**
+ * @brief Establece la posición y orientación de la hormiga.
+ * @param x Fila de la posición inicial de la hormiga.
+ * @param y Columna de la posición inicial de la hormiga.
+ * @param orientacion Orientación inicial de la hormiga, representada como un entero (0: up, 1: right, 2: down, 3: left).
+ */
 void Ant::SetPlace(int x, int y, int orientacion) {
   x_ = x;
   y_ = y;
   direction_ = static_cast<Direccion>(orientacion);
 }
 
+/**
+ * @brief Sobrecarga del operador de salida para imprimir la representación de la hormiga.
+ * @param os Flujo de salida.
+ * @param ant Objeto Ant cuya representación se desea imprimir.
+ * @return Referencia al flujo de salida.
+ */
 std::ostream& operator<<(std::ostream& os, const Ant& ant) {
   switch(ant.direction_) {
     case Direccion::left:   os << "<"; break;
@@ -17,6 +29,12 @@ std::ostream& operator<<(std::ostream& os, const Ant& ant) {
   return os;
 }
 
+/**
+ * @brief Mueve la hormiga según las reglas del juego de la hormiga de Langton.
+ * @param color Color de la celda actual (false: blanca, true: negra).
+ * @param cinta Referencia a la cinta (rejilla) sobre la que se mueve la hormiga.
+ * @return true si el movimiento es válido (dentro de los límites de la rejilla), false si la hormiga se sale de la rejilla.
+ */
 bool Ant::Move(bool color, Tape& cinta) {
   // Si está sobre una celda blanca, cambia el color a negra, gira noventa grados a la izquierda
   // y avanza una celda.

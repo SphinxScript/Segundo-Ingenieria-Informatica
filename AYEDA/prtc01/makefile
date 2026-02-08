@@ -10,7 +10,7 @@
 # 	rm -f $(TARGET)
 
 CXX = g++
-CXXFLAGS = -std=c++17 -Wall
+CXXFLAGS = -std=c++17 -Wall -g
 
 SRC_DIR = src
 TARGET  = langton.out

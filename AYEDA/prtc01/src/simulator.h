@@ -3,6 +3,9 @@
 #include "ant.h"
 #include "tape.h"
 
+/**
+ * @brief Clase que representa el simulador del juego de la hormiga de Langton. Contiene los objetos Ant y Tape, y métodos para ejecutar la simulación.
+ */
 class Simulator  {
  public:
   Simulator(const std::string& fichero_entrada, bool& control);
@@ -10,7 +13,7 @@ class Simulator  {
   Ant GetAnt() const { return hormiga_; }
   Tape GetTape() const { return rejilla_; }
 
-  void Simulate();
+  void Simulate(const int& opcion = 0);  // si la opción es 0, se simula automático. Si es 1, se simula paso a paso.
 
   friend std::ostream& operator<<(std::ostream& os, const Simulator& simulator);
 

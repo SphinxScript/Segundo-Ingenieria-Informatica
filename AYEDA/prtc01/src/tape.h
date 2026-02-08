@@ -6,6 +6,12 @@
 
 class Ant;  // declaración adelantada
 
+/**
+ * @brief Clase que representa la rejilla (tape) en el juego de la hormiga de Langton.
+ * Contiene información sobre el tamaño de la rejilla, el estado de cada celda y un
+ * puntero a la hormiga para acceder a su posición y orientación.
+ */
+
 class Tape {
  public:
   Tape() {};

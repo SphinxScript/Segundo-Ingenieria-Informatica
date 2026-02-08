@@ -7,7 +7,11 @@
 #include "tape.h"
 
 
-
+/**
+ * @brief Constructor de la clase Simulator. Se encarga de leer el fichero de entrada, inicializar la rejilla y la hormiga, y establecer el estado inicial de la simulación.
+ * @param fichero_entrada Nombre del fichero de entrada que contiene la configuración inicial de la simulación.
+ * @param control Referencia a un booleano que se establece a true si la inicialización es exitosa, o a false si ocurre algún error durante la lectura del fichero o la configuración
+ */
 Simulator::Simulator(const std::string& fichero_entrada, bool& control) {
 
   std::ifstream flujo_entrada{fichero_entrada};
@@ -41,21 +45,31 @@ Simulator::Simulator(const std::string& fichero_entrada, bool& control) {
     flujo_linea >> x >> y;
     
     rejilla_.FlipColor(x, y);
-    std::cout << x << " " << y << std::endl;
+    //std::cout << "debug: intercambiando casilla:" << x << " " << y << std::endl;
   }
   // ahora asignamos el puntero de la hormiga al objeto cinta.
   rejilla_.SetAnt(&hormiga_);
   control = true;
 }
 
-void Simulator::Simulate() {
+/**
+ * @brief Ejecuta la simulación de Langton según la opción seleccionada.
+ * @param opcion Opción de simulación (1 para paso a paso, otro valor para ejecución continua).
+ * @return void
+ */
+void Simulator::Simulate(const int& opcion) {
   std::cout << "Presione enter para avanzar, cualquier otra tecla + enter para finalizar";  
   std::string input;
   bool paso_valido{true};
   int contador{0};
   while(true && paso_valido) {
-    getline(std::cin, input);
-    if (!input.empty()) break;
+    if (opcion == 1) {
+      getline(std::cin, input);
+      if (!input.empty()) break;
+      else {
+        paso_valido = Step(contador);
+      }
+    }
     else {
       paso_valido = Step(contador);
     }
@@ -63,6 +77,11 @@ void Simulator::Simulate() {
   std::cout << "finalizando simulación..." << std::endl;
 }
 
+/**
+ * @brief Ejecuta un paso de la simulación, moviendo la hormiga y actualizando la rejilla.
+ * @param contador Referencia a un contador que se incrementa en cada paso para llevar el seguimiento del número de pasos realizados.
+ * @return true si el paso es válido (dentro de los límites de la rejilla), false si la hormiga se sale de la rejilla.
+ */
 bool Simulator::Step(int& contador) {
   bool valido = hormiga_.Move(rejilla_.GetMalla()[hormiga_.GetPosition().first][hormiga_.GetPosition().second], rejilla_);
   system("clear");
