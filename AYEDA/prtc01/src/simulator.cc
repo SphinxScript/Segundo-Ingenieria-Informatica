@@ -48,7 +48,7 @@ Simulator::Simulator(const std::string& fichero_entrada, bool& control) {
     //std::cout << "debug: intercambiando casilla:" << x << " " << y << std::endl;
   }
   // ahora asignamos el puntero de la hormiga al objeto cinta.
-  rejilla_.SetAnt(&hormiga_);
+  //rejilla_.SetAnt(&hormiga_);
   control = true;
 }
 
@@ -85,7 +85,17 @@ void Simulator::Simulate(const int& opcion) {
 bool Simulator::Step(int& contador) {
   bool valido = hormiga_.Move(rejilla_.GetMalla()[hormiga_.GetPosition().first][hormiga_.GetPosition().second], rejilla_);
   system("clear");
-  std::cout << rejilla_;
+  for (int i = 0; i < rejilla_.GetSize().first; ++i) {
+    for (int j = 0; j < rejilla_.GetSize().second; ++j) {
+      if (hormiga_.GetPosition() == std::pair(i, j)) {
+        std::cout << hormiga_ << " ";
+      }
+      else {
+        std::cout << (rejilla_.GetMalla()[i][j] ? "x " : "0 ");
+      }
+    }
+    std::cout << std::endl;
+  }
   std::cout << std::endl;
   std::cout << "Paso " << contador << std::endl;
   ++contador;
