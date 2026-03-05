@@ -1,8 +1,8 @@
 #pragma once
 #include <iostream>
 #include <fstream>
-#include "ant.h"
-#include "tape.h"
+#include "ant/ant.h"
+#include "tape/tape.h"
 #include "simulator.h"
 
 /**

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iostream>
-#include "tape.h"
+#include "../tape/tape.h"
 
 /**
  * @brief enumeración para representar las direcciones de la hormiga.
@@ -16,17 +16,24 @@ enum class Direccion {
 class Tape;  // declaracion adelantada
 
 /**
- * @brief Clase que representa a la hormiga en el juego de la hormiga de Langton. Contiene información sobre su posición, orientación y métodos para moverla.
+ * @brief Clase que representa a la hormiga en el juego de la hormiga de Langton.
+ *        Contiene información sobre su posición, orientación y métodos para moverla.
  */
 class Ant {
  public:
   Ant() = default;
-  bool Move(bool, Tape&);
+
+  virtual bool Move(Tape&) = 0;
+  virtual const std::string GetColorANSI() const = 0;
+  virtual const std::string GetReglas() const = 0;
+  virtual ~Ant() = default;
+
   void SetPlace(int, int, int);
   std::pair<int,int> GetPosition() const { return std::pair<int,int>(x_, y_); }
   Direccion GetOrientacion() const { return direction_; }
+  
   friend std::ostream& operator<<(std::ostream& os, const Ant& ant);
- private:
+ protected:
   // posicion de la hormiga
   int x_;   // fila
   int y_;   // columna

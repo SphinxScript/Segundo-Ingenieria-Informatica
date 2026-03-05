@@ -1,5 +1,6 @@
 #include "funciones.h"
 #include <string>
+#include "ant/ant_reglas.h"
 
 
 /**
@@ -35,13 +36,24 @@ bool ManageHelp(int argc, char* const argv[]) {
  */
 void HandleSave(const std::string& fichero_salida, const Simulator& simulador) {
   std::ofstream flujo_salida{fichero_salida};
-  flujo_salida << simulador.GetTape().GetSize().first << " " << simulador.GetTape().GetSize().second << std::endl;
-  flujo_salida << simulador.GetAnt().GetPosition().first << " " << simulador.GetAnt().GetPosition().second << " " << static_cast<int>(simulador.GetAnt().GetOrientacion()) << std::endl;
-  for (int i{0}; i < simulador.GetTape().GetMalla().size(); ++i) {
-    for (int j{0}; j < simulador.GetTape().GetMalla()[i].size(); ++j) {
-      if (simulador.GetTape().GetMalla()[i][j]) {
-        flujo_salida << i << " " << j;
-        flujo_salida << std::endl;
+  flujo_salida << simulador.GetTape().GetSize().first << " " << simulador.GetTape().GetSize().second << " " << simulador.GetTape().GetNumColores() << std::endl;
+  // bucle para guardar el estado de cada hormig
+  for (int i{0}; i < static_cast<int>(simulador.GetAnts().size()); ++i) {
+    if (i == static_cast<int>(simulador.GetAnts().size()) - 1) {
+      flujo_salida << simulador.GetAnts()[i]->GetReglas() << " " << simulador.GetAnts()[i]->GetPosition().first
+                   << " " << simulador.GetAnts()[i]->GetPosition().second << " " << static_cast<int>(simulador.GetAnts()[i]->GetOrientacion());
+    }
+    else {
+      flujo_salida << simulador.GetAnts()[i]->GetReglas() << " " << simulador.GetAnts()[i]->GetPosition().first
+                   << " " << simulador.GetAnts()[i]->GetPosition().second << " " << static_cast<int>(simulador.GetAnts()[i]->GetOrientacion()) << " ; ";
+    }
+  }
+  flujo_salida << std::endl;
+  // bucle para guardar el estado de cada celda de la rejilla
+  for (int i{0}; i < static_cast<int>(simulador.GetTape().GetMalla().size()); ++i) {
+    for (int j{0}; j < static_cast<int>(simulador.GetTape().GetMalla()[i].size()); ++j) {
+      if (static_cast<int>(simulador.GetTape().GetMalla()[i][j]) != 0) {
+        flujo_salida << i << " " << j << " " << static_cast<int>(simulador.GetTape().GetMalla()[i][j]) << std::endl;
       }
     }
   }

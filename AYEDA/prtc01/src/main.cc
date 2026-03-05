@@ -1,10 +1,10 @@
 #include <iostream>
 
-#include "ant.h"
+#include "ant/ant.h"
 #include "funciones.h"
-#include "tape.h"
+#include "tape/tape.h"
 #include "simulator.h"
-
+#include "ant/ant_reglas.h"
 
 /**
  * @brief Función principal del programa. Se encarga de gestionar la entrada de datos, crear los objetos necesarios y ejecutar la simulación.
@@ -40,13 +40,11 @@ int main(int argc, char* argv[]) {
   getline(std::cin, opcion);
   if (opcion == "1") {
     std::cout << "Simulación paso a paso seleccionada.\n";
-    //simulador.Simulate(1);
   }
   else {
     std::cout << "Simulación automática seleccionada.\n";
-   //simulador.Simulate(0);
   }
-  std::cout << "Rejilla inicial: \n" << simulador.GetTape() << std::endl;
+  std::cout << "Rejilla inicial: \n" << simulador << std::endl;
   simulador.Simulate(opcion == "1" ? 1 : 0);
 
   std::cout << "Desea guardar el resultado en un fichero? (s/n): ";
