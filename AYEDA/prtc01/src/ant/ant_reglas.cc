@@ -7,7 +7,7 @@
  * @return true si el movimiento es válido (dentro de los límites de la rejilla), false en caso contrario.
  */
 bool AntReglas::Move(Tape& tape) {
-  Colores color_actual = tape.GetMalla()[x_][y_];
+  Colores color_actual = tape.GetColor(x_, y_);
   int idx = static_cast<int>(color_actual);
   char regla = reglas_[idx];
   if (regla == 'D') {
@@ -58,6 +58,9 @@ bool AntReglas::Move(Tape& tape) {
       --y_;
       break;
   }
+  tape.ResolvePosition(x_, y_, direction_);  // normalizamos las coordenadas en caso de ser necesario (solo válido para TapePeriodic)
   // comprobamos que la hormiga no se salga de la rejilla
-  return (x_ >= 0 && x_ < tape.GetSize().first && y_ >= 0 && y_ < tape.GetSize().second);
+  //return (x_ >= 0 && x_ < tape.GetSize().first && y_ >= 0 && y_ < tape.GetSize().second);
+  // ya no comprobamos los limites, devuelve true siempre. la cinta se encarga
+  return true;
 }

@@ -4,7 +4,6 @@
 #include <string>
 
 #include "simulator.h"
-#include "tape/tape.h"
 
 
 /**
@@ -13,7 +12,7 @@
  * @param control Referencia a un booleano que se establece a true si la inicialización es exitosa, o a false si ocurre algún error durante la lectura del fichero o la configuración
  */
 Simulator::Simulator(const std::string& fichero_entrada, bool& control) {
-
+  rejilla_ = new TapePeriodic();
   std::ifstream flujo_entrada{fichero_entrada};
   if (!flujo_entrada.is_open()) {
     std::cerr << "No se ha podido abrir el fichero de entrada.\n";
@@ -67,8 +66,8 @@ Simulator::Simulator(const std::string& fichero_entrada, bool& control) {
     ++contador_hormigas;
   }
 
-  rejilla_.SetSize(sizeX, sizeY);
-  rejilla_.SetColores(num_colores);
+  rejilla_->SetSize(sizeX, sizeY);
+  rejilla_->SetColores(num_colores);
   std::string linea;
   while (std::getline(flujo_entrada, linea)) {
     // cada linea es una posición de la rejilla que pasa de blanco (0) por defecto a negro(1)
@@ -76,7 +75,7 @@ Simulator::Simulator(const std::string& fichero_entrada, bool& control) {
     int x, y, color;
     std::stringstream flujo_linea{linea};
     flujo_linea >> x >> y >> color;    
-    rejilla_.FlipColor(x, y, color);
+    rejilla_->FlipColor(x, y, color);
   }
   control = true;
 }
@@ -86,6 +85,7 @@ Simulator::Simulator(const std::string& fichero_entrada, bool& control) {
  */
 Simulator::~Simulator() {
   ClearAnts();
+  if (rejilla_ != nullptr) delete rejilla_;
 }
 
 
@@ -121,7 +121,7 @@ void Simulator::Simulate(const int& opcion) {
  */
 bool Simulator::Step(int& contador) {
   for (int i{0}; i < static_cast<int>(hormigas_.size()); ++i) {
-    bool ok = hormigas_[i]->Move(rejilla_);
+    bool ok = hormigas_[i]->Move(*rejilla_);
     if (!ok) {
       std::cout << "La hormiga de color " << ColorHormiga(*hormigas_[i]) << " se ha salido de la rejilla. Finalizando simulación..." << std::endl;
       return false;
@@ -129,21 +129,25 @@ bool Simulator::Step(int& contador) {
   }
   system("clear");
   // imprimimos indices de columnas:
+  const int min_x = rejilla_->Minx();
+  const int max_x = rejilla_->Maxx();
+  const int min_y = rejilla_->Miny();
+  const int max_y = rejilla_->Maxy();
   std::cout << "    ";
-  for (int i{0}; i < rejilla_.GetSize().second; ++i) {
+  for (int i{min_y}; i <= max_y; ++i) {
     std::cout << i % 10 << " ";
   }
   std::cout << std::endl;
-  for (int i = 0; i < rejilla_.GetSize().first; ++i) {
+  for (int i{min_x}; i <= max_x; ++i) {
     std::cout << i % 10 << " | ";
-    for (int j = 0; j < rejilla_.GetSize().second; ++j) {
+    for (int j{min_y}; j <= max_y; ++j) {
       for (int k{0}; k < static_cast<int>(hormigas_.size()); ++k) {
         if (hormigas_[k]->GetPosition() == std::pair(i,j)) {
           std::cout << hormigas_[k]->GetColorANSI() << *hormigas_[k] << "\033[0m ";
           break;
         }
         else if (k == static_cast<int>(hormigas_.size()) - 1) {
-          switch(rejilla_.GetMalla()[i][j]) {
+          switch(rejilla_->GetColor(i, j)) {
             case Colores::c0:
               std::cout << "□ ";
               break;
@@ -179,20 +183,20 @@ bool Simulator::Step(int& contador) {
  */
 std::ostream& operator<<(std::ostream& os, const Simulator& simulator) {
   os << "    ";
-  for (int i{0}; i < simulator.rejilla_.GetSize().second; ++i) {
+  for (int i{0}; i < simulator.rejilla_->GetSize().second; ++i) {
     os << i % 10 << " ";
   }
   os << std::endl;
-  for (int i = 0; i < simulator.rejilla_.GetSize().first; ++i) {
+  for (int i = 0; i < simulator.rejilla_->GetSize().first; ++i) {
     os << i % 10 << " | ";
-    for (int j = 0; j < simulator.rejilla_.GetSize().second; ++j) {
+    for (int j = 0; j < simulator.rejilla_->GetSize().second; ++j) {
       for (int k{0}; k < static_cast<int>(simulator.hormigas_.size()); ++k) {
         if (simulator.hormigas_[k]->GetPosition() == std::pair(i,j)) {
           os << simulator.hormigas_[k]->GetColorANSI() << *simulator.hormigas_[k] << "\033[0m ";
           break;
         }
         else if (k == static_cast<int>(simulator.hormigas_.size()) - 1) {
-          switch(simulator.rejilla_.GetMalla()[i][j]) {
+          switch(simulator.rejilla_->GetColor(i, j)) {
             case Colores::c0:
               os << "□ ";
               break;

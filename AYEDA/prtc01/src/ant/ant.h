@@ -22,11 +22,11 @@ class Tape;  // declaracion adelantada
 class Ant {
  public:
   Ant() = default;
+  virtual ~Ant() = default;
 
   virtual bool Move(Tape&) = 0;
   virtual const std::string GetColorANSI() const = 0;
   virtual const std::string GetReglas() const = 0;
-  virtual ~Ant() = default;
 
   void SetPlace(int, int, int);
   std::pair<int,int> GetPosition() const { return std::pair<int,int>(x_, y_); }

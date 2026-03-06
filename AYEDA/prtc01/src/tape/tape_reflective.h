@@ -1,14 +1,11 @@
 #pragma once
-
 #include "tape.h"
 #include "../ant/ant.h"
-#include <iostream>
 
-class TapePeriodic : public Tape {
+class TapeReflective : public Tape {
  public:
-  TapePeriodic() = default;
-  ~TapePeriodic() override = default;
-
+  TapeReflective() = default;
+  ~TapeReflective() override = default;
   Colores GetColor(int x, int y) const override;
   void FlipColor(int x, int y, int color = -1) override;
   void SetSize(int x, int y) override;
@@ -16,7 +13,7 @@ class TapePeriodic : public Tape {
  protected:
   void ResolveMove(int& x, int& y, Direccion& direccion) override;
   void Print(std::ostream& os) const override;
-  
+
  private:
   virtual int Minx() const override { return 0; }
   virtual int Maxx() const override { return sizeX_ - 1; }

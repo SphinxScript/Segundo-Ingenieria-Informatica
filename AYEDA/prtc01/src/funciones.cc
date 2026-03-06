@@ -50,10 +50,11 @@ void HandleSave(const std::string& fichero_salida, const Simulator& simulador) {
   }
   flujo_salida << std::endl;
   // bucle para guardar el estado de cada celda de la rejilla
-  for (int i{0}; i < static_cast<int>(simulador.GetTape().GetMalla().size()); ++i) {
-    for (int j{0}; j < static_cast<int>(simulador.GetTape().GetMalla()[i].size()); ++j) {
-      if (static_cast<int>(simulador.GetTape().GetMalla()[i][j]) != 0) {
-        flujo_salida << i << " " << j << " " << static_cast<int>(simulador.GetTape().GetMalla()[i][j]) << std::endl;
+  auto [filas, columnas] = simulador.GetTape().GetSize();
+  for (int i{0}; i < filas; ++i) {
+    for (int j{0}; j < columnas; ++j) {
+      if (static_cast<int>(simulador.GetTape().GetColor(i, j)) != 0) {
+        flujo_salida << i << " " << j << " " << static_cast<int>(simulador.GetTape().GetColor(i, j)) << std::endl;
       }
     }
   }

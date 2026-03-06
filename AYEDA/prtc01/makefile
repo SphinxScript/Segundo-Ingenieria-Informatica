@@ -22,3 +22,6 @@ clean:
 
 valgrind: $(TARGET)
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(TARGET) data/entrada2.txt
+
+exceptions: $(TARGET)
+	

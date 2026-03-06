@@ -1,10 +1,11 @@
 #pragma once
 
-#include "../ant/ant.h"
 #include <vector>
 #include <iostream>
+#include "../ant/ant.h"
 
 class Ant;  // declaración adelantada
+enum class Direccion;  // declaración adelantada
 
 enum class Colores {
   c0,   // blanco por defecto
@@ -22,22 +23,35 @@ enum class Colores {
 
 class Tape {
  public:
-  Tape() {};
+  Tape() = default;
+  virtual ~Tape() = default;
+
   void SetColores(int num_colores) { num_colores_ = num_colores; }
-
-  std::vector<std::vector<Colores>> GetMalla() const { return malla_; }
-  std::pair<int, int> GetSize() const { return std::pair(sizeX_, sizeY_); }
   int GetNumColores() const { return num_colores_; }
+  std::pair<int, int> GetSize() const { return std::pair(sizeX_, sizeY_); }
+  //const std::vector<std::vector<Colores>>& GetMalla() const { return malla_; }
+  
+  virtual Colores GetColor(int x, int y) const = 0;
+  virtual void FlipColor(int, int, int color = -1) = 0;
+  virtual void SetSize(int, int) = 0;
 
-  void FlipColor(int, int, int color = -1);
-  void SetSize(int, int);
+  void ResolvePosition(int& x, int& y, Direccion& direccion) { ResolveMove(x, y, direccion); }
+
+  friend std::ostream& operator<<(std::ostream& os, const Tape& tape) {
+    tape.Print(os);
+    return os;
+  }
+  virtual int Minx() const = 0;
+  virtual int Maxx() const = 0;
+  virtual int Miny() const = 0;
+  virtual int Maxy() const = 0;
   
-  friend std::ostream& operator<<(std::ostream& os, const Tape& tape);
-  
- private:
+ protected:
+  virtual void ResolveMove(int& x, int& y, Direccion&) = 0;
+  virtual void Print(std::ostream& os) const = 0;
+
   int sizeX_;
   int sizeY_;
   int num_colores_;
-  //const Ant* ant_;    // tenemos un puntero a la hormiga para poder acceder a su posición y orientación, y así saber qué color pintar en cada paso
-  std::vector<std::vector<Colores>> malla_;
+  //std::vector<std::vector<Colores>> malla_;
 };
