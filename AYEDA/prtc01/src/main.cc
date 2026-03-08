@@ -14,7 +14,7 @@
  */
 int main(int argc, char* argv[]) {
   system("clear");
-  if (argc < 2) {
+  if (argc < 3) {
     std::cerr << "Error en la invocación del programa.\n";
     PrintUsage();
     return 0;
@@ -25,11 +25,17 @@ int main(int argc, char* argv[]) {
   }
 
   std::string fichero_entrada{argv[1]};
+  int tipo_cinta = std::stoi(argv[2]);
+  if (tipo_cinta < 1 || tipo_cinta > 3) {
+    std::cerr << "Error: tipo de cinta desconocido (" << tipo_cinta << ").\n";
+    PrintUsage();
+    return 0;
+  }
   // std::cout << "debug: nombre_entrada = " << fichero_entrada << "\n";
   // std::cout << "debug: nombre_salida  = " << nombre_fichero << "\n";
   bool check_build;
   //std::cout << "debug: creando objetos...\n";
-  Simulator simulador(fichero_entrada, check_build);
+  Simulator simulador(fichero_entrada, check_build, tipo_cinta);
 
   if (!check_build) {
     std::cerr << "Error al crear los objetos. finalizando" << std::endl;

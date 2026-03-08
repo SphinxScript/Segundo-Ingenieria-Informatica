@@ -42,6 +42,9 @@ bool AntReglas::Move(Tape& tape) {
         break;
     }
   }
+  // antes de cambiar el color, actualizamos su vida
+  ManageLife(color_actual);
+  //std::cout << "debug: vida de la hormiga: " << life_time_ << "\n";
   tape.FlipColor(x_, y_);
   // ahora movemos la hormiga a la siguiente celda según su orientación
   switch (direction_) {

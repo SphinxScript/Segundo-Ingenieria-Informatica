@@ -6,13 +6,15 @@
 #include "tape/tape_periodic.h"
 #include "tape/tape_reflective.h"
 #include "tape/tape_sliding.h"
+#include "ant/ant_herb.h"
+#include "ant/ant_carn.h"
 
 /**
  * @brief Clase que representa el simulador del juego de la hormiga de Langton. Contiene los objetos Ant y Tape, y métodos para ejecutar la simulación.
  */
 class Simulator  {
  public:
-  Simulator(const std::string& fichero_entrada, bool& control);
+  Simulator(const std::string& fichero_entrada, bool& control, int tipo_cinta);
   ~Simulator();
   
   const std::vector<Ant*>& GetAnts() const { return hormigas_; }
@@ -26,6 +28,7 @@ class Simulator  {
   // Aquí tenemos como atributos privados los objetos cinta y hormiga.
   // trabajaremos con ellos a través de esta clase simulator.
   std::vector<Ant*> hormigas_;
+  unsigned int dead_ants_{0};  // contador de hormigas muertas
   Tape* rejilla_;
   std::string ColorHormiga(const Ant&) const;
   void ClearAnts();

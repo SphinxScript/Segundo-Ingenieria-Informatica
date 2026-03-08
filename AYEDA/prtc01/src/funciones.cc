@@ -7,9 +7,14 @@
  * @brief Imprime el mensaje de uso del programa.
  */
 void PrintUsage() {
-  std::cout << "Usage: ./langton.out <fichero_entrada> [OPTIONS]\n"
+  std::cout << "Usage: ./langton.out <fichero_entrada> <tipo_cinta> [OPTIONS]\n"
             << "Options:\n"
-            << "  --h, --help          Muestra este mensaje y termina\n";
+            << "  --h, --help          Muestra este mensaje y termina\n"
+            << "Tipo de cinta:\n"
+            << "  1: cinta periódica\n"
+            << "  2: cinta reflectante\n"
+            << "  3: cinta deslizante\n"
+            << "Ejemplo de invocación: ./langton.out input.txt 1\n";
 }
 
 /**
@@ -41,18 +46,22 @@ void HandleSave(const std::string& fichero_salida, const Simulator& simulador) {
   for (int i{0}; i < static_cast<int>(simulador.GetAnts().size()); ++i) {
     if (i == static_cast<int>(simulador.GetAnts().size()) - 1) {
       flujo_salida << simulador.GetAnts()[i]->GetReglas() << " " << simulador.GetAnts()[i]->GetPosition().first
-                   << " " << simulador.GetAnts()[i]->GetPosition().second << " " << static_cast<int>(simulador.GetAnts()[i]->GetOrientacion());
+                   << " " << simulador.GetAnts()[i]->GetPosition().second << " " << static_cast<int>(simulador.GetAnts()[i]->GetOrientacion())
+                   << " " << simulador.GetAnts()[i]->GetLifeTime();
     }
     else {
       flujo_salida << simulador.GetAnts()[i]->GetReglas() << " " << simulador.GetAnts()[i]->GetPosition().first
-                   << " " << simulador.GetAnts()[i]->GetPosition().second << " " << static_cast<int>(simulador.GetAnts()[i]->GetOrientacion()) << " ; ";
+                   << " " << simulador.GetAnts()[i]->GetPosition().second << " " << static_cast<int>(simulador.GetAnts()[i]->GetOrientacion())
+                   << " " << simulador.GetAnts()[i]->GetLifeTime() << " ; " ;
     }
   }
+  int min_x = simulador.GetTape().Minx();
+  int max_x = simulador.GetTape().Maxx();
+  int min_y = simulador.GetTape().Miny();
+  int max_y = simulador.GetTape().Maxy();
   flujo_salida << std::endl;
-  // bucle para guardar el estado de cada celda de la rejilla
-  auto [filas, columnas] = simulador.GetTape().GetSize();
-  for (int i{0}; i < filas; ++i) {
-    for (int j{0}; j < columnas; ++j) {
+  for (int i{min_x}; i <= max_x; ++i) {
+    for (int j{min_y}; j <= max_y; ++j) {
       if (static_cast<int>(simulador.GetTape().GetColor(i, j)) != 0) {
         flujo_salida << i << " " << j << " " << static_cast<int>(simulador.GetTape().GetColor(i, j)) << std::endl;
       }
