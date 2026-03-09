@@ -7,7 +7,10 @@ class AntCarn : public AntReglas {
  public:
   AntCarn() = default;
   AntCarn(const std::string& reglas, const std::string& ANSI, unsigned int lifetime, double voracity) : AntReglas(reglas, ANSI, lifetime), voracity_(voracity) {}
+  
   double GetVoracity() const { return voracity_; }
+  bool Move(Tape&) override;
+  
   protected:
   void ManageLife(const Colores&) override;
  private:
