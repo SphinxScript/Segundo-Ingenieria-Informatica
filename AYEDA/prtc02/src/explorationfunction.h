@@ -30,6 +30,7 @@ template <class Key>
 class DoubleDispersionExpl : public ExplorationFunction<Key> {
  public:
   DoubleDispersionExpl(const DispersionFunction<Key>& function) : f_(function) {}
+
   unsigned operator() (const Key& clave, unsigned intento) const override {
     unsigned paso = f_(clave);
     if (paso == 0) paso = 1;    // evitar ciclo infinito
@@ -43,6 +44,7 @@ template <class Key>
 class RehashingExploration : public ExplorationFunction<Key> {
  public:
   RehashingExploration(unsigned tablesize) : tablesize_(tablesize) {}
+  
   unsigned operator() (const Key& clave, unsigned intento) const override {
     srand(static_cast<unsigned>(long(clave)));
     unsigned value = 0;

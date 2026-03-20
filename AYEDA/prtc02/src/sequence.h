@@ -22,14 +22,17 @@ class DynamicSeq : public Sequence<Key> {
     }
     return false;
   }
+
   bool Insert(const Key& key) override {
     if (this->Search(key)) return false;
     data_.push_back(key);
     return true;
   }
+
   bool IsFull() const override {
     return false;
   }
+
  private:
   std::list<Key> data_;
 };
@@ -46,6 +49,7 @@ class StaticSeq : public Sequence<Key> {
     }
     return false;
   }
+
   bool Insert(const Key& key) override {
     if (this->Search(key)) return false;
     for (unsigned i{0}; i < block_size_; ++i) {
@@ -57,12 +61,14 @@ class StaticSeq : public Sequence<Key> {
     }
     return false;
   }
+
   bool IsFull() const override {
     for (bool occupied : occupied_) {
       if (!occupied) return false;
     }
     return true;
   }
+  
  private:
   unsigned block_size_;
   std::vector<Key> data_;

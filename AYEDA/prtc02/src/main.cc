@@ -1,5 +1,11 @@
-#include "nif.h"
+
 #include <iostream>
+
+#include "nif.h"
+#include "dispersionfunction.h"
+#include "explorationfunction.h"
+#include "hashtable.h"
+#include "sequence.h"
 
 int main(int argc, char* argv[]) {
   Nif nif1;

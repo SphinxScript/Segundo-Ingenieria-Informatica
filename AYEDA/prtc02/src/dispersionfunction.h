@@ -15,8 +15,9 @@ template <class Key>
 class DfModule : public DispersionFunction<Key> {
  public:
   DfModule(unsigned tablesize) : tablesize_(tablesize) {}
+
   unsigned operator() (const Key& key) const override {
-    return key % tablesize_;
+    return long(key) % tablesize_;
   }
  private:
   unsigned tablesize_;
@@ -27,6 +28,7 @@ template <class Key>
 class DfSum : public DispersionFunction<Key> {
  public:
   DfSum(unsigned tablesize) : tablesize_(tablesize) {}
+
   unsigned operator() (const Key& key) const override {
     long val = long(key);
     unsigned sum = 0;

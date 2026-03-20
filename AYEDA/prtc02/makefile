@@ -4,7 +4,7 @@ CXX = g++
 CXXFLAGS = -std=c++17 -Wall -g
 
 SRC_DIR = src
-TARGET  = langton.out
+TARGET  = hashtable.out
 
 # Archivos fuente  (todo lo terminado en .cc en el directorio src)
 SOURCES = $(shell find $(SRC_DIR) -name "*.cc")
