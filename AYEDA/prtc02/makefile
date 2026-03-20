@@ -21,4 +21,4 @@ clean:
 	rm -f $(TARGET)
 
 valgrind: $(TARGET)
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(TARGET) data/entrada2.txt
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(TARGET) -ts 4 -fd 0 -hash close -fe 0 -bs 12

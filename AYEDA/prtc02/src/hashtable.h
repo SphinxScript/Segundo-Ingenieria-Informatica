@@ -94,13 +94,13 @@ template<class Key> HashTable<Key, DynamicSeq<Key>>::HashTable(unsigned tablesiz
     table_(tablesize),
     fd_(fd)
 {
-  for (int i{0}; i < tablesize; ++i) {
+  for (int i{0}; i < int(tablesize); ++i) {
     table_[i] = new DynamicSeq<Key>();
   }
 }
 
 template <class Key> HashTable<Key, DynamicSeq<Key>>::~HashTable() {
-  for (int i{0}; i < tablesize_; ++i) {
+  for (int i{0}; i < int(tablesize_); ++i) {
     delete table_[i];
   }
 }
