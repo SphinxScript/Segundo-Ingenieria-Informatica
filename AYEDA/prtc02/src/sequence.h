@@ -2,6 +2,11 @@
 #include <list>
 #include <vector>
 
+/**
+ * @brief Clase abstracta Sequence que representa una secuencia de claves.
+ * Esta clase se utiliza para implementar las secuencias de claves en la tabla hash.
+ * Se pueden implementar diferentes tipos de secuencias, como secuencias estáticas o dinámicas.
+ */
 template <class Key>
 class Sequence {
  public:
@@ -12,7 +17,11 @@ class Sequence {
 };
 
 
-
+/**
+ * @brief Clase DynamicSeq que representa una secuencia dinámica de claves.
+ * Esta clase se utiliza para implementar la secuencia de claves en la tabla hash cuando se utiliza direccionamiento abierto con secuencia dinámica.
+ * La secuencia dinámica se implementa utilizando una lista enlazada.
+ */
 template <class Key>
 class DynamicSeq : public Sequence<Key> {
  public:
@@ -38,7 +47,11 @@ class DynamicSeq : public Sequence<Key> {
 };
 
 
-
+/**
+ * @brief Clase StaticSeq que representa una secuencia estática de claves.
+ * Esta clase se utiliza para implementar la secuencia de claves en la tabla hash cuando se utiliza direccionamiento abierto con secuencia estática.
+ * La secuencia estática se implementa utilizando un vector de tamaño fijo.
+ */
 template <class Key>
 class StaticSeq : public Sequence<Key> {
  public:

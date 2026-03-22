@@ -1,6 +1,9 @@
 #pragma once
 #include "dispersionfunction.h"
 
+/**
+ * @brief ExplorationFunction representa una función de exploración genérica para claves de tipo Key.
+ */
 template <class Key>
 class ExplorationFunction {
  public:
@@ -9,6 +12,9 @@ class ExplorationFunction {
 };
 
 
+/**
+ * @brief LinearExploration implementa una función de exploración lineal.
+ */
 template <class Key>
 class LinearExploration : public ExplorationFunction<Key> {
  public:
@@ -17,6 +23,9 @@ class LinearExploration : public ExplorationFunction<Key> {
   }
 };
 
+/**
+ * @brief SquareExploration implementa una función de exploración cuadrática.
+ */
 template <class Key>
 class SquareExploration : public ExplorationFunction<Key> {
  public:
@@ -26,6 +35,9 @@ class SquareExploration : public ExplorationFunction<Key> {
 };
 
 
+/**
+ * @brief DoubleDispersionExpl implementa una función de exploración que utiliza el resultado de una función de dispersión para calcular el paso.
+ */
 template <class Key>
 class DoubleDispersionExpl : public ExplorationFunction<Key> {
  public:
@@ -40,6 +52,9 @@ class DoubleDispersionExpl : public ExplorationFunction<Key> {
   const DispersionFunction<Key>& f_;
 };
 
+/**
+ * @brief RehashingExploration implementa una función de exploración que genera un número aleatorio basado en la clave y el intento.
+ */
 template <class Key>
 class RehashingExploration : public ExplorationFunction<Key> {
  public:

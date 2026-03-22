@@ -2,6 +2,9 @@
 
 #include "funciones.h"
 
+/**
+ * @brief PrintHelp muestra la ayuda de uso del programa.
+ */
 void PrintHelp() {
   std::cout
             << "Uso:\n"
@@ -27,6 +30,11 @@ void PrintHelp() {
             << "                         3  Redispersión\n";
 }
 
+/**
+ * @brief CheckArg verifica si el argumento es una opción válida.
+ * @param arg El argumento a verificar.
+ * @return true si el argumento es válido, false en caso contrario.
+ */
 bool CheckArg(const std::string& arg) {
   if (arg == "-ts" || arg == "-fd" || arg == "-hash" || arg == "-bs" || arg == "-fe") {
     return true;
@@ -34,6 +42,11 @@ bool CheckArg(const std::string& arg) {
   return false;
 }
 
+/**
+ * @brief CheckNumber verifica si una cadena representa un número válido.
+ * @param cadena La cadena a verificar.
+ * @return true si la cadena representa un número válido, false en caso contrario.
+ */
 bool CheckNumber(const std::string& cadena) {
   try {
     std::stoi(cadena);
@@ -47,6 +60,13 @@ bool CheckNumber(const std::string& cadena) {
   return true;
 }
 
+/**
+ * @brief ManageArgs procesa los argumentos de la línea de comandos y llena la estructura ArgsConfig.
+ * @param argc Número de argumentos.
+ * @param argv Arreglo de argumentos.
+ * @param argumentos Estructura donde se almacenarán los argumentos procesados.
+ * @return 0 si los argumentos son válidos, un código de error en caso contrario
+ */
 int ManageArgs(int argc, char* argv[], ArgsConfig& argumentos) {
   bool close = false;
   bool bool_block = false;
@@ -119,6 +139,9 @@ int ManageArgs(int argc, char* argv[], ArgsConfig& argumentos) {
   return 0;
 }
 
+/**
+ * @brief ShowMenu muestra el menú de opciones para el usuario.
+ */
 void ShowMenu() {
   std::cout << "Introduzca 1 Para insertar, 2 para buscar un valor" << std::endl;
   std::cout << "Introduzca 0 para salir" << std::endl;

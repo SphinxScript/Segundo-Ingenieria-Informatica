@@ -1,7 +1,9 @@
 #pragma once
 
 
-
+/**
+ * @brief DispersionFunction representa una función de dispersión genérica para claves de tipo Key.
+ */
 template<class Key>
 class DispersionFunction {
  public:
@@ -10,7 +12,9 @@ class DispersionFunction {
 };
 
 
-
+/**
+ * @brief DfModule implementa una función de dispersión basada en el módulo de la clave.
+ */
 template <class Key>
 class DfModule : public DispersionFunction<Key> {
  public:
@@ -24,6 +28,9 @@ class DfModule : public DispersionFunction<Key> {
 };
 
 
+/**
+ * @brief DfSum implementa una función de dispersión que suma los dígitos de la clave.
+ */
 template <class Key>
 class DfSum : public DispersionFunction<Key> {
  public:
@@ -43,6 +50,9 @@ class DfSum : public DispersionFunction<Key> {
 };
 
 
+/**
+ * @brief DfRandom implementa una función de dispersión que genera un número aleatorio basado en la clave.
+ */
 template <class Key>
 class DfRandom : public DispersionFunction<Key> {
  public:

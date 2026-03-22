@@ -1,6 +1,9 @@
 #pragma once
 
 
+/**
+ * @brief Clase Nif que representa un número de identificación fiscal.
+ */
 class Nif {
 
  public:
