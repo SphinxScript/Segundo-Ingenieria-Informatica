@@ -106,6 +106,8 @@ class StaticSeq : public Sequence<Key> {
     os << std::endl;
   }
 
+  void Swap(unsigned antes, unsigned despues);
+
   
  private:
   unsigned block_size_;
@@ -121,4 +123,9 @@ StaticSeq<Key>::StaticSeq(unsigned block_size) : block_size_(block_size), data_(
   for (int i{0}; i < block_size_; ++i) {
     data_[i] = dis(gen);
   }
+}
+
+template <class Key>
+void StaticSeq<Key>::Swap(unsigned antes, unsigned despues) {
+  std::swap(data_[antes], data_[despues]);
 }

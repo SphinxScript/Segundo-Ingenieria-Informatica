@@ -29,9 +29,7 @@ void SelectionSort<Key>::Sort() {
         indx_menor = j;
       }
     }
-    Key aux = secuencia_[i];
-    secuencia_[i] = secuencia_[indx_menor];
-    secuencia_[indx_menor] = aux;
+    secuencia_.Swap(i, indx_menor);
     ++i;
   }
 }
