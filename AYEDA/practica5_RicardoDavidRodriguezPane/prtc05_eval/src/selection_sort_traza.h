@@ -5,16 +5,18 @@
 template <class Key>
 class SelectionSort {
  public:
-  SelectionSort(StaticSeq<Key>& secuencia, unsigned size);
+  SelectionSort(StaticSeq<Key>& secuencia, unsigned size, unsigned&);
+  unsigned GetAsignaciones() const { return asignaciones_; }
  private:
   void Sort();
   int size_;
   StaticSeq<Key>& secuencia_;
+  unsigned& asignaciones_ = 0;
 };
 
 
 template <class Key>
-SelectionSort<Key>::SelectionSort(StaticSeq<Key>& secuencia, unsigned size) : size_(size), secuencia_(secuencia) {
+SelectionSort<Key>::SelectionSort(StaticSeq<Key>& secuencia, unsigned size, unsigned& asignaciones) : size_(size), secuencia_(secuencia), asignaciones_(asignaciones) {
   Sort();
 }
 
@@ -30,6 +32,9 @@ void SelectionSort<Key>::Sort() {
       }
     }
     secuencia_.Swap(i, indx_menor);
+    asignaciones_ += 3;
     ++i;
+    std::cout << "traza: " << std::endl;
+    std::cout << secuencia_ << std::endl;
   }
 }

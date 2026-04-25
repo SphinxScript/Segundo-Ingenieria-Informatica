@@ -31,5 +31,7 @@ void SelectionSort<Key>::Sort() {
     }
     secuencia_.Swap(i, indx_menor);
     ++i;
+    std::cout << "traza: " << std::endl;
+    std::cout << secuencia_ << std::endl;
   }
 }

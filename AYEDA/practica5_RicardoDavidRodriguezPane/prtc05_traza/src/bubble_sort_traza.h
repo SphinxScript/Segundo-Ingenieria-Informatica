@@ -1,6 +1,7 @@
 #pragma once
 
 #include "sequence.h"
+#include <iostream>
 
 template <class Key>
 class BubbleSort {
@@ -29,5 +30,7 @@ void BubbleSort<Key>::Sort() {
       }
     }
     --recorrido;
+    std::cout << "traza: " << std::endl;
+    std::cout << secuencia_ << std::endl;
   }
 }

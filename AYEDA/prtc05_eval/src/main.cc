@@ -1,9 +1,9 @@
-#include "selection_sort.h"
+#include "selection_sort_traza.h"
 #include "sequence.h"
-#include "bubble_sort.h"
-#include "mergesort.h"
-#include "heapsort.h"
-#include "shell_sort.h"
+#include "bubble_sort_traza.h"
+#include "mergesort_traza.h"
+#include "heapsort_traza.h"
+#include "shell_sort_traza.h"
 #include "funciones.h"
 #include "nif.h"
 #include "sortmethod.h"
@@ -129,9 +129,23 @@ int main(int argc, char* argv[]) {
       std::cerr << "Metodo de ordenacion no valido";
       return 1;
   }
-  metodo_ordenacion->Sort();
-  std::cout << "Secuencia ordenada:\n";
-  std::cout << secuencia;
+  unsigned contador = 0;
+  std::vector<unsigned> asignaciones;
+  while (contador < 10) {
+    metodo_ordenacion->Sort();
+    asignaciones.push_back(metodo_ordenacion->GetAsignaciones());
+    metodo_ordenacion->SetAsignacionesZero();
+    ++contador;
+  }
+  //calculamos la media de asignaciones
+  unsigned suma_asignaciones = 0;
+  for (unsigned asignacion : asignaciones) {
+    suma_asignaciones += asignacion;
+  }
+  double media_asignaciones = static_cast<double>(suma_asignaciones) / asignaciones.size();
+  std::cout << "Media de asignaciones realizadas: " << media_asignaciones << std::endl;
+  // std::cout << "Secuencia ordenada:\n";
+  // std::cout << secuencia;
   delete metodo_ordenacion;
   return 0;
   
